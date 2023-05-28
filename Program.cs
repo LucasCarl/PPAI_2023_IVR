@@ -14,7 +14,11 @@ namespace PPAI_IVR_2023
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Llamada llamada = new Llamada(SubopcionesDao.Instancia().GetSubopciones(0)[1], null, new List<CambioEstado>(), new Cliente(42678364, "Ramon Ramirez", 35178989, new InformacionCliente[0]));
+
+            //FUERA DEL CU: Crear llamada proveniente
+            SubOpcionLlamada subOp = SubopcionesDao.Instancia().GetSubopciones(0)[1];
+            Cliente cliente = ClientesDao.Instancia().GetClientes()[0];
+            Llamada llamada = new Llamada(subOp, null, new List<CambioEstado>(), cliente);
             GestorRtaOperador gestor = new GestorRtaOperador();
 
             //Inicia el CU: 17
