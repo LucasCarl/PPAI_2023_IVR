@@ -14,9 +14,11 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         public EstadosDao()
         {
-            listaEstados = new Estado[2];
-            listaEstados[0] = new Estado("En Curso");
-            listaEstados[1] = new Estado("Iniciada");
+            listaEstados = new Estado[4];
+            listaEstados[0] = new Estado("Iniciada");
+            listaEstados[1] = new Estado("En Curso");
+            listaEstados[2] = new Estado("Finalizada");
+            listaEstados[3] = new Estado("Cancelada");
         }
 
         public static EstadosDao Instancia()

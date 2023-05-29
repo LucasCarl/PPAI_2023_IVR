@@ -14,11 +14,14 @@ namespace PPAI_IVR_2023.Gestores
         private Llamada llamadaEnCurso;
         private CategoriaLlamada[] listaCategorias;
         private PantallaRtaOperador pantalla;
+        private string descripcion;
+        private GestorAcciones gestorAcciones;
 
         public GestorRtaOperador()
         {
             listaCategorias = CategoriasDao.Instancia().ObtenerTodasCategorias();
             pantalla = new PantallaRtaOperador(this);
+            gestorAcciones = new GestorAcciones();
         }
 
         public void OpOperador(Llamada llamada)
@@ -157,8 +160,50 @@ namespace PPAI_IVR_2023.Gestores
             //Comprueba que todas las validaciones sean correctas
             if(validacionesCorrectas == listaValidacionesLlamada.Length)
             {
-                pantalla.TomarDescripcion();
+                pantalla.SolicitarAccion();
             }
+        }
+
+        public void TomarAccion(string descr)
+        {
+            descripcion = descr;
+            pantalla.SolicitarConfirmacion();
+        }
+
+        public void TomarConfirmacion(bool confirmacion)
+        {
+            if (confirmacion)
+            {
+                llamadaEnCurso.SetDescripcionOperador(descripcion);
+                //Envia accion al Gestor Acciones para hacer el CU26
+                gestorAcciones.RegistarAccion();
+
+                FinalizarLlamada();
+            }
+        }
+
+        private void FinalizarLlamada()
+        {
+            //Marca la llamada como finalizada
+            Estado[] estados = EstadosDao.Instancia().GetEstados();
+            Estado finalizada = null;
+            foreach (Estado est in estados)
+            {
+                if (est.EsEnCurso())
+                {
+                    finalizada = est;
+                    break;
+                }
+            }
+
+            //Marca la llamada como finalizada
+            llamadaEnCurso.Finalizar(finalizada);
+            //Calcula la duracion de la llamada
+            llamadaEnCurso.CalcularDuracion();
+            //Registrar llamada en BD
+
+            //Avisa a operador que se termino el registro
+            pantalla.AvisoFinRegistro();
         }
     }
 }

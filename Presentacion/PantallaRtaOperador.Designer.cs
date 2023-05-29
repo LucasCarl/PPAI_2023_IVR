@@ -277,6 +277,7 @@
             this.btnRegistrarAccion.TabIndex = 6;
             this.btnRegistrarAccion.Text = "Registrar Acción";
             this.btnRegistrarAccion.UseVisualStyleBackColor = true;
+            this.btnRegistrarAccion.Click += new System.EventHandler(this.btnRegistrarAccion_Click);
             // 
             // btnCancelar
             // 
@@ -286,6 +287,7 @@
             this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // PantallaRtaOperador
             // 

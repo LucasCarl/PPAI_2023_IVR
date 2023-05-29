@@ -48,10 +48,37 @@ namespace PPAI_IVR_2023.Presentacion
             MessageBox.Show("Una de las validaciones ingresadas no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public void TomarDescripcion()
+        public void SolicitarAccion()
         {
             txtDescripcion.Enabled = true;
             btnRegistrarAccion.Enabled = true;
+        }
+
+        private void btnRegistrarAccion_Click(object sender, EventArgs e)
+        {
+            string descr = txtDescripcion.Text;
+            gestorRta.TomarAccion(descr);
+        }
+
+        public void SolicitarConfirmacion()
+        {
+            DialogResult respuesta = MessageBox.Show("Seguro que quiere confirmar esta acción?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            gestorRta.TomarConfirmacion(respuesta == DialogResult.Yes);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("Seguro que quiere terminar la llamada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(DialogResult.Yes == respuesta)
+            {
+                this.Close();
+            }
+        }
+
+        public void AvisoFinRegistro()
+        {
+            MessageBox.Show("La llamada y su accion fueron registradas con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
     }
 }
