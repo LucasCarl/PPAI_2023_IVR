@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class Cliente
+    public class Cliente
     {
         private int dni;
         private string nombreCompleto;

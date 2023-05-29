@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class Validacion
+    public class Validacion
     {
         //private string audioMensajeValidacion;
         private string nombre;
@@ -19,6 +19,11 @@ namespace PPAI_IVR_2023.Entidades
             this.nombre = nombre;
             this.nroOrden = nroOrden;
             this.tipo = tipo;
+        }
+
+        public TipoInformacion GetTipoInfo()
+        {
+            return tipo;
         }
     }
 }

@@ -14,22 +14,23 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         public SubopcionesDao()
         {
+            Validacion[] listaValidaciones = ValidacionesDao.Instancia().GetValidaciones();
             listasSubopciones = new SubOpcionLlamada[3][];
 
             listasSubopciones[0] = new SubOpcionLlamada[3];
-            listasSubopciones[0][0] = new SubOpcionLlamada("Cuenta con los datos", 1, new Validacion[0]);
-            listasSubopciones[0][1] = new SubOpcionLlamada("No cuenta con los datos", 2, new Validacion[0]);
-            listasSubopciones[0][2] = new SubOpcionLlamada("Desea comunicarse con responsable", 3, new Validacion[0]);
+            listasSubopciones[0][0] = new SubOpcionLlamada("Cuenta con los datos", 1, new Validacion[2] { listaValidaciones[0], listaValidaciones[2] });
+            listasSubopciones[0][1] = new SubOpcionLlamada("No cuenta con los datos", 2, new Validacion[2] { listaValidaciones[0], listaValidaciones[2] });
+            listasSubopciones[0][2] = new SubOpcionLlamada("Desea comunicarse con responsable", 3, new Validacion[2] { listaValidaciones[0], listaValidaciones[2] });
 
             listasSubopciones[1] = new SubOpcionLlamada[3];
-            listasSubopciones[1][0] = new SubOpcionLlamada("Informar motivos de bloqueo", 1, new Validacion[0]);
-            listasSubopciones[1][1] = new SubOpcionLlamada("Comunicarse con responsable", 2, new Validacion[0]);
+            listasSubopciones[1][0] = new SubOpcionLlamada("Informar motivos de bloqueo", 1, new Validacion[1] { listaValidaciones[0] });
+            listasSubopciones[1][1] = new SubOpcionLlamada("Comunicarse con responsable", 2, new Validacion[2] { listaValidaciones[0], listaValidaciones[1] });
 
             listasSubopciones[2] = new SubOpcionLlamada[4];
-            listasSubopciones[2][0] = new SubOpcionLlamada("SubOp 1", 1, new Validacion[0]);
-            listasSubopciones[2][1] = new SubOpcionLlamada("SubOp 2", 2, new Validacion[0]);
-            listasSubopciones[2][2] = new SubOpcionLlamada("SubOp 3", 3, new Validacion[0]);
-            listasSubopciones[2][3] = new SubOpcionLlamada("SubOp 4", 4, new Validacion[0]);
+            listasSubopciones[2][0] = new SubOpcionLlamada("SubOp 1", 1, new Validacion[1] { listaValidaciones[1] });
+            listasSubopciones[2][1] = new SubOpcionLlamada("SubOp 2", 2, new Validacion[1] { listaValidaciones[0] });
+            listasSubopciones[2][2] = new SubOpcionLlamada("SubOp 3", 3, new Validacion[2] { listaValidaciones[1], listaValidaciones[2] });
+            listasSubopciones[2][3] = new SubOpcionLlamada("SubOp 4", 4, new Validacion[3] { listaValidaciones[0], listaValidaciones[1], listaValidaciones[2] });
         }
 
         public static SubopcionesDao Instancia()

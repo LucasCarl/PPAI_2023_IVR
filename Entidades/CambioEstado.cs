@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class CambioEstado
+    public class CambioEstado
     {
         private DateTime fechaHoraInicio;
         private DateTime fechaHoraFin;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class Llamada
+    public class Llamada
     {
         private SubOpcionLlamada subopcionSeleccionada;
         private OpcionLlamada opcionSeleccionada;
@@ -65,6 +65,11 @@ namespace PPAI_IVR_2023.Entidades
         public OpcionLlamada GetOpcion()
         {
             return opcionSeleccionada;
+        }
+
+        public bool ValidarDato(TipoInformacion tipo, string dato)
+        {
+            return true;
         }
     }
 }

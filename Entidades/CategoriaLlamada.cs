@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class CategoriaLlamada
+    public class CategoriaLlamada
     {
         //private string audioMensajeOpciones;
         //private string mensajeOpciones;

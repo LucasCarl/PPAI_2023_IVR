@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class InformacionCliente
+    public class InformacionCliente
     {
         private string datoAValidar;
         private Validacion validacion;
@@ -17,6 +17,11 @@ namespace PPAI_IVR_2023.Entidades
             this.datoAValidar = datoAValidar;
             this.validacion = validacion;
             this.tipo = tipo;
+        }
+
+        public TipoInformacion GetTipoInfo()
+        {
+            return tipo;
         }
     }
 }

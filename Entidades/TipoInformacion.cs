@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class TipoInformacion
+    public class TipoInformacion
     {
         private string descripcion;
 

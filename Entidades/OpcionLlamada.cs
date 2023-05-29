@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    internal class OpcionLlamada
+    public class OpcionLlamada
     {
         //private string audioMensajeSubopciones;
         //private string mensajeSubopciones;
@@ -41,6 +41,11 @@ namespace PPAI_IVR_2023.Entidades
         {
             string txt = nroOrden + ". " + nombre;
             return txt;
+        }
+
+        public Validacion[] GetValidaciones()
+        {
+            return validacionesRequeridas;
         }
     }
 }

@@ -9,7 +9,7 @@ using PPAI_IVR_2023.Presentacion;
 
 namespace PPAI_IVR_2023.Gestores
 {
-    internal class GestorRtaOperador
+    public class GestorRtaOperador
     {
         private Llamada llamadaEnCurso;
         private CategoriaLlamada[] listaCategorias;
@@ -18,7 +18,7 @@ namespace PPAI_IVR_2023.Gestores
         public GestorRtaOperador()
         {
             listaCategorias = CategoriasDao.Instancia().ObtenerTodasCategorias();
-            pantalla = new PantallaRtaOperador();
+            pantalla = new PantallaRtaOperador(this);
         }
 
         public void OpOperador(Llamada llamada)
@@ -95,6 +95,70 @@ namespace PPAI_IVR_2023.Gestores
         {
             //Crea la ventana
             Application.Run(pantalla);
+        }
+
+        /// <summary>
+        /// Controla las validaciones de la subopcion / opcion elegida de la llamada
+        /// </summary>
+        /// <param name="fechaNacimiento">Respuesta a la validacion de tipo Fecha Nacimiento</param>
+        /// <param name="hijos">Respuesta a la validacion de tipo Cantidad de Hijos</param>
+        /// <param name="codigoPostal">Respuesta a la validacion de tipo Codigo Postal</param>
+        public void ControlarValidaciones(string fechaNacimiento, string hijos, string codigoPostal)
+        {
+            Validacion[] listaValidacionesLlamada;
+            //Si la llamada tiene subopcion se consultan las validaciones de la subopcion, sino se pregunta a la opcion elegida
+            if (llamadaEnCurso.TieneSubopcion())
+            {
+                listaValidacionesLlamada = llamadaEnCurso.GetSubOpcion().GetValidaciones();
+            }
+            else
+            {
+                listaValidacionesLlamada = llamadaEnCurso.GetOpcion().GetValidaciones();
+            }
+
+            int validacionesCorrectas = 0;
+            for (int i = 0; i < listaValidacionesLlamada.Length; i++)
+            {
+                //Primero busca de que tipo es para mandar dato de validacion
+                TipoInformacion tipoInfo = listaValidacionesLlamada[i].GetTipoInfo();
+                string tipoDescr = tipoInfo.GetDescripcion();
+                string dato = "";
+                switch (tipoDescr)
+                {
+                    case "Fecha de Nacimiento":
+                        dato = fechaNacimiento;
+                        break;
+
+                    case "Numero de Hijos":
+                        dato = hijos;
+                        break;
+
+                    case "Codigo Postal":
+                        dato = codigoPostal;
+                        break;
+                }
+
+                //Le dice a llamada que valide el dato
+                bool resultado = llamadaEnCurso.ValidarDato(tipoInfo, dato);
+
+                if (resultado)
+                {
+                    //Si la validacion es positiva, se suma el contador
+                    validacionesCorrectas++;
+                }
+                else
+                {
+                    //Si la validacion es negativa, se avisa al operador y corta el ciclo
+                    pantalla.ErrorValidacion();
+                    break;
+                }
+            }
+
+            //Comprueba que todas las validaciones sean correctas
+            if(validacionesCorrectas == listaValidacionesLlamada.Length)
+            {
+                pantalla.TomarDescripcion();
+            }
         }
     }
 }
