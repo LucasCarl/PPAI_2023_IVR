@@ -23,5 +23,10 @@ namespace PPAI_IVR_2023.Entidades
         {
             return tipo;
         }
+
+        public bool CompararDato(string dato)
+        {
+            return dato == datoAValidar;
+        }
     }
 }

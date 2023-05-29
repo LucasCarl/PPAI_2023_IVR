@@ -67,9 +67,9 @@ namespace PPAI_IVR_2023.Entidades
             return opcionSeleccionada;
         }
 
-        public bool ValidarDato(TipoInformacion tipo, string dato)
+        public bool ValidarDatoCliente(TipoInformacion tipo, string dato)
         {
-            return true;
+            return cliente.ValidarDato(tipo, dato);
         }
     }
 }

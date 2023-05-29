@@ -139,7 +139,7 @@ namespace PPAI_IVR_2023.Gestores
                 }
 
                 //Le dice a llamada que valide el dato
-                bool resultado = llamadaEnCurso.ValidarDato(tipoInfo, dato);
+                bool resultado = llamadaEnCurso.ValidarDatoCliente(tipoInfo, dato);
 
                 if (resultado)
                 {

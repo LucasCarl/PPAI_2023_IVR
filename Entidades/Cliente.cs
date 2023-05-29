@@ -61,9 +61,18 @@ namespace PPAI_IVR_2023.Entidades
             this.info = info;
         }
 
-        public bool esCliente()
+        public bool ValidarDato(TipoInformacion tipo, string dato)
         {
-            return true;
+            bool resultado = false;
+            for (int i = 0; i < info.Length; i++)
+            {
+                if (info[i].GetTipoInfo() == tipo)
+                {
+                    resultado = info[i].CompararDato(dato);
+                    break;
+                }
+            }
+            return resultado;
         }
     }
 }
