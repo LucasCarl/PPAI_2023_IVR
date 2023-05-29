@@ -48,16 +48,27 @@ namespace PPAI_IVR_2023.Presentacion
             MessageBox.Show("Una de las validaciones ingresadas no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public void SolicitarAccion()
+        public void SolicitarAccion(string[] nombreAcciones)
         {
             txtDescripcion.Enabled = true;
             btnRegistrarAccion.Enabled = true;
+            cbxAcciones.DataSource = nombreAcciones;
+            cbxAcciones.Enabled = true;
         }
 
         private void btnRegistrarAccion_Click(object sender, EventArgs e)
         {
             string descr = txtDescripcion.Text;
-            gestorRta.TomarAccion(descr);
+            int accion = cbxAcciones.SelectedIndex;
+            if(accion == 0)
+            {
+                DialogResult respuesta = MessageBox.Show("No se selecciono ninguna acción.\nDesea registrar la llamada sin ninguna accion asignada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            gestorRta.TomarAccion(accion, descr);
         }
 
         public void SolicitarConfirmacion()

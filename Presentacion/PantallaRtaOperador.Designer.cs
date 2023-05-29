@@ -49,6 +49,8 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnRegistrarAccion = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblAccion = new System.Windows.Forms.Label();
+            this.cbxAcciones = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -253,7 +255,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 338);
+            this.label1.Location = new System.Drawing.Point(12, 367);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 15);
             this.label1.TabIndex = 8;
@@ -262,7 +264,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Enabled = false;
-            this.txtDescripcion.Location = new System.Drawing.Point(12, 356);
+            this.txtDescripcion.Location = new System.Drawing.Point(12, 385);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(258, 68);
@@ -271,7 +273,7 @@
             // btnRegistrarAccion
             // 
             this.btnRegistrarAccion.Enabled = false;
-            this.btnRegistrarAccion.Location = new System.Drawing.Point(12, 430);
+            this.btnRegistrarAccion.Location = new System.Drawing.Point(12, 459);
             this.btnRegistrarAccion.Name = "btnRegistrarAccion";
             this.btnRegistrarAccion.Size = new System.Drawing.Size(108, 23);
             this.btnRegistrarAccion.TabIndex = 6;
@@ -281,7 +283,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(162, 430);
+            this.btnCancelar.Location = new System.Drawing.Point(162, 459);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(108, 23);
             this.btnCancelar.TabIndex = 7;
@@ -289,11 +291,32 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblAccion
+            // 
+            this.lblAccion.AutoSize = true;
+            this.lblAccion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAccion.Location = new System.Drawing.Point(12, 344);
+            this.lblAccion.Name = "lblAccion";
+            this.lblAccion.Size = new System.Drawing.Size(47, 15);
+            this.lblAccion.TabIndex = 9;
+            this.lblAccion.Text = "Acción:";
+            // 
+            // cbxAcciones
+            // 
+            this.cbxAcciones.Enabled = false;
+            this.cbxAcciones.FormattingEnabled = true;
+            this.cbxAcciones.Location = new System.Drawing.Point(65, 341);
+            this.cbxAcciones.Name = "cbxAcciones";
+            this.cbxAcciones.Size = new System.Drawing.Size(205, 23);
+            this.cbxAcciones.TabIndex = 10;
+            // 
             // PantallaRtaOperador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 462);
+            this.ClientSize = new System.Drawing.Size(282, 491);
+            this.Controls.Add(this.cbxAcciones);
+            this.Controls.Add(this.lblAccion);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnRegistrarAccion);
             this.Controls.Add(this.txtDescripcion);
@@ -338,5 +361,7 @@
         private Button btnValidar;
         private GroupBox groupBox5;
         private NumericUpDown numCodigoPostal;
+        private Label lblAccion;
+        private ComboBox cbxAcciones;
     }
 }

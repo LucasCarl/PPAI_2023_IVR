@@ -16,6 +16,8 @@ namespace PPAI_IVR_2023.Gestores
         private PantallaRtaOperador pantalla;
         private string descripcion;
         private GestorAcciones gestorAcciones;
+        private Accion[] listaAcciones;
+        private int indexAccion;
 
         public GestorRtaOperador()
         {
@@ -160,12 +162,20 @@ namespace PPAI_IVR_2023.Gestores
             //Comprueba que todas las validaciones sean correctas
             if(validacionesCorrectas == listaValidacionesLlamada.Length)
             {
-                pantalla.SolicitarAccion();
+                listaAcciones = AccionesDao.Instancia().GetAcciones();
+                string[] nombreAcciones = new string[listaAcciones.Length + 1];
+                nombreAcciones[0] = "--------";
+                for (int i = 0; i < listaAcciones.Length; i++)
+                {
+                    nombreAcciones[i] = listaAcciones[i + 1].GetDescripcion();
+                }
+                pantalla.SolicitarAccion(nombreAcciones);
             }
         }
 
-        public void TomarAccion(string descr)
+        public void TomarAccion(int accion, string descr)
         {
+            indexAccion = accion;
             descripcion = descr;
             pantalla.SolicitarConfirmacion();
         }
@@ -176,7 +186,12 @@ namespace PPAI_IVR_2023.Gestores
             {
                 llamadaEnCurso.SetDescripcionOperador(descripcion);
                 //Envia accion al Gestor Acciones para hacer el CU26
-                gestorAcciones.RegistarAccion();
+                Accion accionLlamada;
+                if (indexAccion == 0)
+                    accionLlamada = null;
+                else
+                    accionLlamada = listaAcciones[indexAccion - 1];
+                gestorAcciones.RegistarAccion(accionLlamada);
 
                 FinalizarLlamada();
             }
