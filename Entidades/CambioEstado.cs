@@ -19,34 +19,26 @@ namespace PPAI_IVR_2023.Entidades
             this.estado = estado;
         }
 
-        /// <summary>
-        /// Obtiene la fecha hora cuando se creo el cambio estado
-        /// </summary>
+        /// <summary> Obtiene la fecha hora cuando se creo el cambio estado </summary>
         public DateTime GetFechaHoraInicio()
         {
             return fechaHoraInicio;
         }
 
-        /// <summary>
-        /// Coloca la fecha hora cuando se termina el cambio estado
-        /// </summary>
+        /// <summary> Coloca la fecha hora cuando se termina el cambio estado </summary>
         public void SetFechaHoraFin(DateTime fechaHora)
         {
             this.fechaHoraFin = fechaHora;
         }
 
-        /// <summary>
-        /// Detecta si es el ultimo cambio de estado
-        /// </summary>
+        /// <summary> Detecta si es el ultimo cambio de estado </summary>
         public bool EsUltimo()
         {
-            //Compara por MinValue porque DateTime nunca es null
+            // Compara por MinValue porque DateTime nunca es null
             return fechaHoraFin == DateTime.MinValue;
         }
 
-        /// <summary>
-        /// Detecta si el cambio de estado tiene el estado iniciada
-        /// </summary>
+        /// <summary> Detecta si el cambio de estado tiene el estado iniciada </summary>
         public bool EsIniciada(Estado iniciada)
         {
             return estado == iniciada;
