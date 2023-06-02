@@ -17,11 +17,14 @@ namespace PPAI_IVR_2023.Entidades
             this.validacion = validacion;
         }
 
+        /// <summary> Pregunta si tiene la validacion con el numero de orden indicado </summary>
         public bool TieneValidacion(int nroOrden)
         {
             return validacion.GetNroOrden() == nroOrden;
         }
 
+        /// <summary> Comprueba que el dato sea el correcto </summary>
+        /// <param name="dato"> Informacion a comparar </param>
         public bool EsDatoCorrecto(string dato)
         {
             return dato == datoAValidar;
