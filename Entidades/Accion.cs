@@ -15,6 +15,7 @@ namespace PPAI_IVR_2023.Entidades
             this.nombre = nombre;
         }
 
+        /// <summary> Obtiene el nombre de la accion </summary>
         public string GetNombre()
         {
             return nombre;
