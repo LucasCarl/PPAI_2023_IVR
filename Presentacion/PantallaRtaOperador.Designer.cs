@@ -38,12 +38,14 @@
             this.lblCliente = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.gbxCodigoPostal = new System.Windows.Forms.GroupBox();
+            this.btnCodigoPostal = new System.Windows.Forms.Button();
             this.numCodigoPostal = new System.Windows.Forms.NumericUpDown();
-            this.btnValidar = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gbxFechaNacimiento = new System.Windows.Forms.GroupBox();
+            this.btnFechaNacimiento = new System.Windows.Forms.Button();
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbxHijos = new System.Windows.Forms.GroupBox();
+            this.btnHijos = new System.Windows.Forms.Button();
             this.numHijos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
@@ -53,10 +55,10 @@
             this.cbxAcciones = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.gbxCodigoPostal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCodigoPostal)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.gbxFechaNacimiento.SuspendLayout();
+            this.gbxHijos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHijos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,30 +163,43 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.groupBox5);
-            this.groupBox2.Controls.Add(this.btnValidar);
-            this.groupBox2.Controls.Add(this.groupBox4);
-            this.groupBox2.Controls.Add(this.groupBox3);
+            this.groupBox2.Controls.Add(this.gbxCodigoPostal);
+            this.groupBox2.Controls.Add(this.gbxFechaNacimiento);
+            this.groupBox2.Controls.Add(this.gbxHijos);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.groupBox2.Location = new System.Drawing.Point(12, 98);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 237);
+            this.groupBox2.Size = new System.Drawing.Size(258, 208);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Validaciones";
             // 
-            // groupBox5
+            // gbxCodigoPostal
             // 
-            this.groupBox5.Controls.Add(this.numCodigoPostal);
-            this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox5.Location = new System.Drawing.Point(6, 145);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox5.Size = new System.Drawing.Size(246, 56);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Codigo Postal";
+            this.gbxCodigoPostal.Controls.Add(this.btnCodigoPostal);
+            this.gbxCodigoPostal.Controls.Add(this.numCodigoPostal);
+            this.gbxCodigoPostal.Enabled = false;
+            this.gbxCodigoPostal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gbxCodigoPostal.Location = new System.Drawing.Point(6, 145);
+            this.gbxCodigoPostal.Name = "gbxCodigoPostal";
+            this.gbxCodigoPostal.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.gbxCodigoPostal.Size = new System.Drawing.Size(246, 56);
+            this.gbxCodigoPostal.TabIndex = 3;
+            this.gbxCodigoPostal.TabStop = false;
+            this.gbxCodigoPostal.Text = "Codigo Postal";
+            this.gbxCodigoPostal.Visible = false;
+            // 
+            // btnCodigoPostal
+            // 
+            this.btnCodigoPostal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnCodigoPostal.Location = new System.Drawing.Point(144, 20);
+            this.btnCodigoPostal.Name = "btnCodigoPostal";
+            this.btnCodigoPostal.Size = new System.Drawing.Size(76, 23);
+            this.btnCodigoPostal.TabIndex = 7;
+            this.btnCodigoPostal.Text = "Validar";
+            this.btnCodigoPostal.UseVisualStyleBackColor = true;
+            this.btnCodigoPostal.Click += new System.EventHandler(this.btnCodigoPostal_Click);
             // 
             // numCodigoPostal
             // 
@@ -199,28 +214,31 @@
             this.numCodigoPostal.Size = new System.Drawing.Size(109, 23);
             this.numCodigoPostal.TabIndex = 3;
             // 
-            // btnValidar
+            // gbxFechaNacimiento
             // 
-            this.btnValidar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnValidar.Location = new System.Drawing.Point(4, 207);
-            this.btnValidar.Name = "btnValidar";
-            this.btnValidar.Size = new System.Drawing.Size(108, 23);
-            this.btnValidar.TabIndex = 4;
-            this.btnValidar.Text = "Validar";
-            this.btnValidar.UseVisualStyleBackColor = true;
-            this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click);
+            this.gbxFechaNacimiento.Controls.Add(this.btnFechaNacimiento);
+            this.gbxFechaNacimiento.Controls.Add(this.dtpFechaNacimiento);
+            this.gbxFechaNacimiento.Enabled = false;
+            this.gbxFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gbxFechaNacimiento.Location = new System.Drawing.Point(6, 22);
+            this.gbxFechaNacimiento.Name = "gbxFechaNacimiento";
+            this.gbxFechaNacimiento.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.gbxFechaNacimiento.Size = new System.Drawing.Size(246, 56);
+            this.gbxFechaNacimiento.TabIndex = 1;
+            this.gbxFechaNacimiento.TabStop = false;
+            this.gbxFechaNacimiento.Text = "Fecha Nacimiento";
+            this.gbxFechaNacimiento.Visible = false;
             // 
-            // groupBox4
+            // btnFechaNacimiento
             // 
-            this.groupBox4.Controls.Add(this.dtpFechaNacimiento);
-            this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox4.Location = new System.Drawing.Point(6, 22);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox4.Size = new System.Drawing.Size(246, 56);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Fecha Nacimiento";
+            this.btnFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnFechaNacimiento.Location = new System.Drawing.Point(144, 22);
+            this.btnFechaNacimiento.Name = "btnFechaNacimiento";
+            this.btnFechaNacimiento.Size = new System.Drawing.Size(76, 23);
+            this.btnFechaNacimiento.TabIndex = 5;
+            this.btnFechaNacimiento.Text = "Validar";
+            this.btnFechaNacimiento.UseVisualStyleBackColor = true;
+            this.btnFechaNacimiento.Click += new System.EventHandler(this.btnFechaNacimiento_Click);
             // 
             // dtpFechaNacimiento
             // 
@@ -231,17 +249,31 @@
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(109, 23);
             this.dtpFechaNacimiento.TabIndex = 1;
             // 
-            // groupBox3
+            // gbxHijos
             // 
-            this.groupBox3.Controls.Add(this.numHijos);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.groupBox3.Location = new System.Drawing.Point(6, 83);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox3.Size = new System.Drawing.Size(246, 56);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Cantidad Hijos";
+            this.gbxHijos.Controls.Add(this.btnHijos);
+            this.gbxHijos.Controls.Add(this.numHijos);
+            this.gbxHijos.Enabled = false;
+            this.gbxHijos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gbxHijos.Location = new System.Drawing.Point(6, 83);
+            this.gbxHijos.Name = "gbxHijos";
+            this.gbxHijos.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.gbxHijos.Size = new System.Drawing.Size(246, 56);
+            this.gbxHijos.TabIndex = 2;
+            this.gbxHijos.TabStop = false;
+            this.gbxHijos.Text = "Cantidad Hijos";
+            this.gbxHijos.Visible = false;
+            // 
+            // btnHijos
+            // 
+            this.btnHijos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnHijos.Location = new System.Drawing.Point(144, 22);
+            this.btnHijos.Name = "btnHijos";
+            this.btnHijos.Size = new System.Drawing.Size(76, 23);
+            this.btnHijos.TabIndex = 6;
+            this.btnHijos.Text = "Validar";
+            this.btnHijos.UseVisualStyleBackColor = true;
+            this.btnHijos.Click += new System.EventHandler(this.btnHijos_Click);
             // 
             // numHijos
             // 
@@ -255,7 +287,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 367);
+            this.label1.Location = new System.Drawing.Point(12, 338);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 15);
             this.label1.TabIndex = 8;
@@ -264,7 +296,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Enabled = false;
-            this.txtDescripcion.Location = new System.Drawing.Point(12, 385);
+            this.txtDescripcion.Location = new System.Drawing.Point(12, 356);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(258, 68);
@@ -273,7 +305,7 @@
             // btnRegistrarAccion
             // 
             this.btnRegistrarAccion.Enabled = false;
-            this.btnRegistrarAccion.Location = new System.Drawing.Point(12, 459);
+            this.btnRegistrarAccion.Location = new System.Drawing.Point(12, 430);
             this.btnRegistrarAccion.Name = "btnRegistrarAccion";
             this.btnRegistrarAccion.Size = new System.Drawing.Size(108, 23);
             this.btnRegistrarAccion.TabIndex = 6;
@@ -283,7 +315,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(162, 459);
+            this.btnCancelar.Location = new System.Drawing.Point(162, 430);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(108, 23);
             this.btnCancelar.TabIndex = 7;
@@ -295,7 +327,7 @@
             // 
             this.lblAccion.AutoSize = true;
             this.lblAccion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblAccion.Location = new System.Drawing.Point(12, 344);
+            this.lblAccion.Location = new System.Drawing.Point(12, 315);
             this.lblAccion.Name = "lblAccion";
             this.lblAccion.Size = new System.Drawing.Size(47, 15);
             this.lblAccion.TabIndex = 9;
@@ -305,7 +337,7 @@
             // 
             this.cbxAcciones.Enabled = false;
             this.cbxAcciones.FormattingEnabled = true;
-            this.cbxAcciones.Location = new System.Drawing.Point(65, 341);
+            this.cbxAcciones.Location = new System.Drawing.Point(65, 312);
             this.cbxAcciones.Name = "cbxAcciones";
             this.cbxAcciones.Size = new System.Drawing.Size(205, 23);
             this.cbxAcciones.TabIndex = 10;
@@ -314,7 +346,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 491);
+            this.ClientSize = new System.Drawing.Size(282, 460);
             this.Controls.Add(this.cbxAcciones);
             this.Controls.Add(this.lblAccion);
             this.Controls.Add(this.btnCancelar);
@@ -324,14 +356,15 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "PantallaRtaOperador";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PantallaRtaOperador";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
+            this.gbxCodigoPostal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numCodigoPostal)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.gbxFechaNacimiento.ResumeLayout(false);
+            this.gbxHijos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numHijos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -350,18 +383,20 @@
         private Label lblCliente;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private GroupBox groupBox3;
+        private GroupBox gbxHijos;
         private NumericUpDown numHijos;
-        private GroupBox groupBox4;
+        private GroupBox gbxFechaNacimiento;
         private DateTimePicker dtpFechaNacimiento;
         private Label label1;
         private TextBox txtDescripcion;
         private Button btnRegistrarAccion;
         private Button btnCancelar;
-        private Button btnValidar;
-        private GroupBox groupBox5;
+        private GroupBox gbxCodigoPostal;
         private NumericUpDown numCodigoPostal;
         private Label lblAccion;
         private ComboBox cbxAcciones;
+        private Button btnCodigoPostal;
+        private Button btnFechaNacimiento;
+        private Button btnHijos;
     }
 }

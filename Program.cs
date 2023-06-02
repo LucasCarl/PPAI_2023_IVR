@@ -15,14 +15,7 @@ namespace PPAI_IVR_2023
         {
             ApplicationConfiguration.Initialize();
 
-            //FUERA DEL CU: Crear llamada proveniente
-            SubOpcionLlamada subOp = SubopcionesDao.Instancia().GetSubopciones(0)[1];
-            Cliente cliente = ClientesDao.Instancia().GetClientes()[0];
-            Llamada llamada = new Llamada(subOp, null, new List<CambioEstado>(), cliente);
-            GestorRtaOperador gestor = new GestorRtaOperador();
-
-            //Inicia el CU: 17
-            gestor.OpOperador(cliente);
+            Application.Run(new Form1(new GestorRtaOperador(), ClientesDao.Instancia().GetClientes()));
         }
     }
 }

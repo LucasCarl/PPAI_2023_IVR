@@ -23,7 +23,7 @@ namespace PPAI_IVR_2023.Presentacion
 
         public void HabilitarPantalla()
         {
-            Application.Run(this);
+            this.Show();
         }
 
         public void MostrarDatosLlamada(string nombreCliente, string[] datosOpciones)
@@ -34,41 +34,90 @@ namespace PPAI_IVR_2023.Presentacion
             txtSubOp.Text = datosOpciones[2];
         }
 
-        public void MostrarValidacion()
+        public void MostrarValidacion(int validacion)
         {
+            GroupBox gboxValidacion;
+            switch (validacion)
+            {
+                case 1:
+                    gboxValidacion = gbxFechaNacimiento;
+                    break;
 
+                case 2:
+                    gboxValidacion = gbxHijos;
+                    break;
+
+                case 3:
+                    gboxValidacion = gbxCodigoPostal;
+                    break;
+
+                default:
+                    return;
+            }
+
+            gboxValidacion.Visible = true;
         }
 
-        public void SolicitarValidacion()
+        public void SolicitarValidacion(int validacion)
         {
+            GroupBox gboxValidacion;
+            switch (validacion)
+            {
+                case 1:
+                    gboxValidacion = gbxFechaNacimiento;
+                    break;
 
+                case 2:
+                    gboxValidacion = gbxHijos;
+                    break;
+
+                case 3:
+                    gboxValidacion = gbxCodigoPostal;
+                    break;
+
+                default:
+                    return;
+            }
+
+            gboxValidacion.Enabled = true;
         }
 
-        public void TomarValidacion()
+        public void TomarValidacion(int validacion, string dato)
         {
-
+            gestorRta.ControlarValidacion(validacion, dato);
         }
 
-        public void TomarValidaciones()
+        public void ValidacionBuena(int validacion)
         {
-            string fechaNacimiento = dtpFechaNacimiento.Text.ToString();
-            string hijos = numHijos.Text.ToString();
-            string codigoPostal = numCodigoPostal.Text.ToString();
+            GroupBox gboxValidacion;
+            switch (validacion)
+            {
+                case 1:
+                    gboxValidacion = gbxFechaNacimiento;
+                    break;
 
-            gestorRta.ControlarValidaciones(fechaNacimiento, hijos, codigoPostal);
-        }
+                case 2:
+                    gboxValidacion = gbxHijos;
+                    break;
 
-        private void btnValidar_Click(object sender, EventArgs e)
-        {
-            TomarValidaciones();
+                case 3:
+                    gboxValidacion = gbxCodigoPostal;
+                    break;
+
+                default:
+                    return;
+            }
+
+            gboxValidacion.Enabled = false;
+            gboxValidacion.BackColor = Color.GreenYellow;
         }
 
         public void ErrorValidacion()
         {
-            MessageBox.Show("Una de las validaciones ingresadas no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("La validacion ingresada no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public void MostrarAccion(string[] nombreAcciones)
+        public void MostrarAcciones(string[] nombreAcciones)
         {
             cbxAcciones.DataSource = nombreAcciones;
         }
@@ -82,22 +131,14 @@ namespace PPAI_IVR_2023.Presentacion
 
         public void TomarAccion()
         {
-
+            string descr = txtDescripcion.Text;
+            int accion = cbxAcciones.SelectedIndex;
+            gestorRta.TomarAccion(accion, descr);
         }
 
         private void btnRegistrarAccion_Click(object sender, EventArgs e)
         {
-            string descr = txtDescripcion.Text;
-            int accion = cbxAcciones.SelectedIndex;
-            if(accion == 0)
-            {
-                DialogResult respuesta = MessageBox.Show("No se selecciono ninguna acción.\nDesea registrar la llamada sin ninguna accion asignada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(respuesta == DialogResult.No)
-                {
-                    return;
-                }
-            }
-            gestorRta.TomarAccion(accion, descr);
+            TomarAccion();
         }
 
         public void SolicitarConfirmacion()
@@ -124,6 +165,21 @@ namespace PPAI_IVR_2023.Presentacion
         {
             MessageBox.Show("La llamada y su accion fueron registradas con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+        }
+
+        private void btnFechaNacimiento_Click(object sender, EventArgs e)
+        {
+            TomarValidacion(1, dtpFechaNacimiento.Text.ToString());
+        }
+
+        private void btnHijos_Click(object sender, EventArgs e)
+        {
+            TomarValidacion(2, numHijos.Text.ToString());
+        }
+
+        private void btnCodigoPostal_Click(object sender, EventArgs e)
+        {
+            TomarValidacion(3, numCodigoPostal.Text.ToString());
         }
     }
 }

@@ -94,14 +94,29 @@ namespace PPAI_IVR_2023.Entidades
             return opcionSeleccionada;
         }
 
+        /// <summary> Busca las validaciones que requiera la llamada. </summary>
+        /// <returns> Los numero de orden de las validaciones </returns>
         public int[] ObtenerValidaciones()
         {
-            return new int[0];
+            //Obtiene las validaciones necesarias para la subopcion u opcion
+            Validacion[] validaciones = new Validacion[0];
+            if (TieneSubopcion())
+                validaciones = subopcionSeleccionada.GetValidaciones();
+            else
+                validaciones = opcionSeleccionada.GetValidaciones();
+
+            //Obtiene el nroOrden de cada una
+            int[] nroValidaciones = new int[validaciones.Length];
+            for (int i = 0; i < validaciones.Length; i++)
+            {
+                nroValidaciones[i] = validaciones[i].GetNroOrden();
+            }
+            return nroValidaciones;
         }
 
-        public bool ValidarDato(TipoInformacion tipo, string dato)
+        public bool ValidarDato(int validacion, string dato)
         {
-            return cliente.ValidarDato(tipo, dato);
+            return cliente.ValidarDato(validacion, dato);
         }
 
         public void SetDescripcionOperador(string descripcion)

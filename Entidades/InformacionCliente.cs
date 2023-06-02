@@ -19,7 +19,7 @@ namespace PPAI_IVR_2023.Entidades
 
         public bool TieneValidacion(int nroOrden)
         {
-            return validacion.getNroOrden() == nroOrden;
+            return validacion.GetNroOrden() == nroOrden;
         }
 
         public bool EsDatoCorrecto(string dato)

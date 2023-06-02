@@ -14,11 +14,10 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         public ValidacionesDao()
         {
-            TipoInformacion[] listaTipos = TiposInfoDao.Instancia().GetTipos();
             listaValidaciones = new Validacion[3];
-            listaValidaciones[0] = new Validacion("Fecha", 1, listaTipos[0]);
-            listaValidaciones[1] = new Validacion("Hijos", 2, listaTipos[1]);
-            listaValidaciones[2] = new Validacion("Cod Postal", 3, listaTipos[2]);
+            listaValidaciones[0] = new Validacion("Fecha", 1);
+            listaValidaciones[1] = new Validacion("Hijos", 2);
+            listaValidaciones[2] = new Validacion("Cod Postal", 3);
         }
 
         public static ValidacionesDao Instancia()

@@ -14,6 +14,8 @@ namespace PPAI_IVR_2023.Gestores
         private Llamada llamadaEnCurso;
         private CategoriaLlamada[] listaCategorias;
         private PantallaRtaOperador pantalla;
+        private int[] listaValidaciones;
+        private int validacionesBuenas = 0;
         private string descripcion;
         private GestorAcciones gestorAcciones;
         private Accion[] listaAcciones;
@@ -24,6 +26,7 @@ namespace PPAI_IVR_2023.Gestores
             listaCategorias = CategoriasDao.Instancia().ObtenerTodasCategorias();
             pantalla = new PantallaRtaOperador(this);
             gestorAcciones = new GestorAcciones();
+            listaAcciones = AccionesDao.Instancia().GetAcciones();
         }
 
         public void OpOperador(Cliente cliente)
@@ -37,8 +40,11 @@ namespace PPAI_IVR_2023.Gestores
             //Mostrar los datos de la llamada
             BuscarDatosLlamada();
 
-            //Muestra la pantalla
-            HabilitarPantalla();
+            //Busca las validaciones de la subopcion
+            listaValidaciones = BuscarValidaciones();
+
+            //Valida cada una de las validaciones encontradas
+            ValidarDatos();
         }
 
         private void IdentificarLlamada(Cliente cliente)
@@ -105,6 +111,7 @@ namespace PPAI_IVR_2023.Gestores
                     if (ops.Length > 1)
                     {
                         datosOpciones = listaCategorias[i].ObtenerNombresCategoriaOpcionSubOpcion(ops[0], ops[1]);
+                        break;
                     }
                 }
             }
@@ -117,6 +124,7 @@ namespace PPAI_IVR_2023.Gestores
                     if(op != -1)
                     {
                         datosOpciones = listaCategorias[i].ObtenerNombresCategoriaOpcion(op);
+                        break;
                     }
                 }
             }
@@ -125,95 +133,52 @@ namespace PPAI_IVR_2023.Gestores
             pantalla.MostrarDatosLlamada(nombreCliente, datosOpciones);
         }
 
-        /// <summary>
-        /// Controla las validaciones de la subopcion / opcion elegida de la llamada
-        /// </summary>
-        /// <param name="fechaNacimiento">Respuesta a la validacion de tipo Fecha Nacimiento</param>
-        /// <param name="hijos">Respuesta a la validacion de tipo Cantidad de Hijos</param>
-        /// <param name="codigoPostal">Respuesta a la validacion de tipo Codigo Postal</param>
-        public void ControlarValidaciones(string fechaNacimiento, string hijos, string codigoPostal)
-        {
-            Validacion[] listaValidacionesLlamada;
-            //Si la llamada tiene subopcion se consultan las validaciones de la subopcion, sino se pregunta a la opcion elegida
-            if (llamadaEnCurso.TieneSubopcion())
-            {
-                listaValidacionesLlamada = llamadaEnCurso.GetSubOpcionSeleccionada().GetValidaciones();
-            }
-            else
-            {
-                listaValidacionesLlamada = llamadaEnCurso.GetOpcionSeleccionada().GetValidaciones();
-            }
-
-            int validacionesCorrectas = 0;
-            for (int i = 0; i < listaValidacionesLlamada.Length; i++)
-            {
-                //Primero busca de que tipo es para mandar dato de validacion
-                //TipoInformacion tipoInfo = listaValidacionesLlamada[i].GetTipoInfo();
-                //string tipoDescr = tipoInfo.GetDescripcion();
-                string dato = "";
-                switch (tipoDescr)
-                {
-                    case "Fecha de Nacimiento":
-                        dato = fechaNacimiento;
-                        break;
-
-                    case "Numero de Hijos":
-                        dato = hijos;
-                        break;
-
-                    case "Codigo Postal":
-                        dato = codigoPostal;
-                        break;
-                }
-
-                //Le dice a llamada que valide el dato
-                bool resultado = llamadaEnCurso.ValidarDato(tipoInfo, dato);
-
-                if (resultado)
-                {
-                    //Si la validacion es positiva, se suma el contador
-                    validacionesCorrectas++;
-                }
-                else
-                {
-                    //Si la validacion es negativa, se avisa al operador y corta el ciclo
-                    pantalla.ErrorValidacion();
-                    break;
-                }
-            }
-
-            //Comprueba que todas las validaciones sean correctas
-            if(validacionesCorrectas == listaValidacionesLlamada.Length)
-            {
-                listaAcciones = AccionesDao.Instancia().GetAcciones();
-                string[] nombreAcciones = new string[listaAcciones.Length + 1];
-                nombreAcciones[0] = "--------";
-                for (int i = 0; i < listaAcciones.Length; i++)
-                {
-                    nombreAcciones[i] = listaAcciones[i + 1].GetNombre();
-                }
-                pantalla.MostrarAccion(nombreAcciones);
-            }
-        }
-
         public int[] BuscarValidaciones()
         {
             return llamadaEnCurso.ObtenerValidaciones();
         }
 
-        public void ValidarDato(string dato, int nroValidacion)
+        public void ValidarDatos()
         {
-
+            pantalla.MostrarValidacion(listaValidaciones[validacionesBuenas]);
+            pantalla.SolicitarValidacion(listaValidaciones[validacionesBuenas]);
         }
 
-        public void ControlarValidacion()
+        public void ControlarValidacion(int validacion, string dato)
         {
+            //Controla si el dato ingresado es correcto o no
+            bool control = llamadaEnCurso.ValidarDato(validacion, dato);
+            if (control)
+            {
+                pantalla.ValidacionBuena(validacion);
+                validacionesBuenas++;
+            }
+            else
+            {
+                pantalla.ErrorValidacion();
+            }
 
+            //Controla que la cantidad de validaciones buenas sean las necesarias
+            if(validacionesBuenas == listaValidaciones.Length)
+            {
+                BuscarAcciones();
+            }
+            else
+            {
+                ValidarDatos();
+            }
         }
 
-        public string[] BuscarAcciones()
+        public void BuscarAcciones()
         {
-            return new string[3];
+            string[] nombresAcciones = new string[listaAcciones.Length];
+            for (int i = 0; i < listaAcciones.Length; i++)
+            {
+                nombresAcciones[i] = listaAcciones[i].GetNombre();
+            }
+
+            pantalla.MostrarAcciones(nombresAcciones);
+            pantalla.SolicitarAccion();
         }
 
         public void TomarAccion(int accion, string descr)
@@ -229,13 +194,10 @@ namespace PPAI_IVR_2023.Gestores
             {
                 llamadaEnCurso.SetDescripcionOperador(descripcion);
                 //Envia accion al Gestor Acciones para hacer el CU26
-                Accion accionLlamada;
-                if (indexAccion == 0)
-                    accionLlamada = null;
-                else
-                    accionLlamada = listaAcciones[indexAccion - 1];
+                Accion accionLlamada = listaAcciones[indexAccion];
                 gestorAcciones.RegistarAccion(accionLlamada);
 
+                //Finaliza la llamada
                 FinalizarLlamada();
             }
         }
@@ -263,6 +225,13 @@ namespace PPAI_IVR_2023.Gestores
 
             //Avisa a operador que se termino el registro
             pantalla.AvisoFinRegistro();
+
+            FinDeCU();
+        }
+
+        private void FinDeCU()
+        {
+            Application.Exit();
         }
     }
 }

@@ -21,17 +21,17 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
             listasInfoClientes = new InformacionCliente[3][];
             listasInfoClientes[0] = new InformacionCliente[3];
-            listasInfoClientes[0][0] = new InformacionCliente("25/10/1973", listaValidaciones[0], listaTipos[0]);
-            listasInfoClientes[0][1] = new InformacionCliente("3", listaValidaciones[1], listaTipos[1]);
-            listasInfoClientes[0][2] = new InformacionCliente("5004", listaValidaciones[2], listaTipos[2]);
+            listasInfoClientes[0][0] = new InformacionCliente("25/10/1973", listaValidaciones[0]);
+            listasInfoClientes[0][1] = new InformacionCliente("3", listaValidaciones[1]);
+            listasInfoClientes[0][2] = new InformacionCliente("5004", listaValidaciones[2]);
             listasInfoClientes[1] = new InformacionCliente[3];
-            listasInfoClientes[1][0] = new InformacionCliente("3/5/1985", listaValidaciones[0], listaTipos[0]);
-            listasInfoClientes[1][1] = new InformacionCliente("0", listaValidaciones[1], listaTipos[1]);
-            listasInfoClientes[1][2] = new InformacionCliente("5012", listaValidaciones[2], listaTipos[2]);
+            listasInfoClientes[1][0] = new InformacionCliente("3/5/1985", listaValidaciones[0]);
+            listasInfoClientes[1][1] = new InformacionCliente("0", listaValidaciones[1]);
+            listasInfoClientes[1][2] = new InformacionCliente("5012", listaValidaciones[2]);
             listasInfoClientes[2] = new InformacionCliente[3];
-            listasInfoClientes[2][0] = new InformacionCliente("13/7/1968", listaValidaciones[0], listaTipos[0]);
-            listasInfoClientes[2][1] = new InformacionCliente("1", listaValidaciones[1], listaTipos[1]);
-            listasInfoClientes[2][2] = new InformacionCliente("5000", listaValidaciones[2], listaTipos[2]);
+            listasInfoClientes[2][0] = new InformacionCliente("13/7/1968", listaValidaciones[0]);
+            listasInfoClientes[2][1] = new InformacionCliente("1", listaValidaciones[1]);
+            listasInfoClientes[2][2] = new InformacionCliente("5000", listaValidaciones[2]);
 
             listaClientes = new Cliente[3];
             listaClientes[0] = new Cliente(42678364, "Ramon Ramirez", 351789891, listasInfoClientes[0]);
