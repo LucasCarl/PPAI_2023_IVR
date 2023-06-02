@@ -21,6 +21,32 @@ namespace PPAI_IVR_2023.Entidades
             this.info = info;
         }
 
+        /// <summary> Obtiene el nombre del cliente </summary>
+        public string GetNombre()
+        {
+            return nombreCompleto;
+        }
+
+        public void SetNombre(string nombre)
+        {
+            this.nombreCompleto = nombre;
+        }
+
+        /// <summary> Valida que el dato sea el correcto </summary>
+        /// <param name="validacion"> Numero de orden de la validacion </param>
+        /// <param name="dato"> Informacion a comprobar </param>
+        public bool ValidarDato(int validacion, string dato)
+        {
+            bool resultado = false;
+            for (int i = 0; i < info.Length; i++)
+            {
+                if (info[i].TieneValidacion(validacion))
+                    resultado = info[i].EsDatoCorrecto(dato);
+            }
+           
+            return resultado;
+        }
+
         public bool esCliente(Cliente cliente)
         {
             return cliente == this;
@@ -34,16 +60,6 @@ namespace PPAI_IVR_2023.Entidades
         public void SetDni(int dni)
         {
             this.dni = dni;
-        }
-
-        public string GetNombre()
-        {
-            return nombreCompleto;
-        }
-
-        public void SetNombre(string nombre)
-        {
-            this.nombreCompleto = nombre;
         }
 
         public int GetNroCelular()
@@ -64,18 +80,6 @@ namespace PPAI_IVR_2023.Entidades
         public void SetInfo(InformacionCliente[] info)
         {
             this.info = info;
-        }
-
-        public bool ValidarDato(int validacion, string dato)
-        {
-            bool resultado = false;
-            for (int i = 0; i < info.Length; i++)
-            {
-                if (info[i].TieneValidacion(validacion))
-                    resultado = info[i].EsDatoCorrecto(dato);
-            }
-           
-            return resultado;
         }
     }
 }
