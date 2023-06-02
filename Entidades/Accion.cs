@@ -8,16 +8,16 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class Accion
     {
-        private string descripcion;
+        private string nombre;
 
-        public Accion(string descripcion)
+        public Accion(string nombre)
         {
-            this.descripcion = descripcion;
+            this.nombre = nombre;
         }
 
-        public string GetDescripcion()
+        public string GetNombre()
         {
-            return descripcion;
+            return nombre;
         }
     }
 }

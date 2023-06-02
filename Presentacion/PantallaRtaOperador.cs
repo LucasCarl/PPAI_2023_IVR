@@ -21,12 +21,32 @@ namespace PPAI_IVR_2023.Presentacion
             this.gestorRta = gestor;
         }
 
-        public void PasarDatosLlamada(string[] datosLlamada)
+        public void HabilitarPantalla()
+        {
+            Application.Run(this);
+        }
+
+        public void MostrarDatosLlamada(string[] datosLlamada)
         {
             txtCliente.Text = datosLlamada[0];
             txtCategoria.Text = datosLlamada[1];
             txtOpcion.Text = datosLlamada[2];
             txtSubOp.Text = datosLlamada[3];
+        }
+
+        public void MostrarValidacion()
+        {
+
+        }
+
+        public void SolicitarValidacion()
+        {
+
+        }
+
+        public void TomarValidacion()
+        {
+
         }
 
         public void TomarValidaciones()
@@ -48,12 +68,21 @@ namespace PPAI_IVR_2023.Presentacion
             MessageBox.Show("Una de las validaciones ingresadas no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public void SolicitarAccion(string[] nombreAcciones)
+        public void MostrarAccion(string[] nombreAcciones)
+        {
+            cbxAcciones.DataSource = nombreAcciones;
+        }
+
+        public void SolicitarAccion()
         {
             txtDescripcion.Enabled = true;
             btnRegistrarAccion.Enabled = true;
-            cbxAcciones.DataSource = nombreAcciones;
             cbxAcciones.Enabled = true;
+        }
+
+        public void TomarAccion()
+        {
+
         }
 
         private void btnRegistrarAccion_Click(object sender, EventArgs e)
@@ -75,6 +104,11 @@ namespace PPAI_IVR_2023.Presentacion
         {
             DialogResult respuesta = MessageBox.Show("Seguro que quiere confirmar esta acción?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             gestorRta.TomarConfirmacion(respuesta == DialogResult.Yes);
+        }
+
+        public void TomarConfirmacion()
+        {
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

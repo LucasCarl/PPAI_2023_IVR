@@ -26,18 +26,46 @@ namespace PPAI_IVR_2023.Gestores
             gestorAcciones = new GestorAcciones();
         }
 
-        public void OpOperador(Llamada llamada)
+        public void OpOperador(Llamada llamada, Cliente cliente)
         {
             llamadaEnCurso = llamada;
+            //Identifica la llamada del cliente
+            IdentificarLlamada(cliente);
 
             //Marcar en curso a la llamada
             MarcarEnCurso();
 
             //Mostrar los datos de la llamada
-            MostrarDatosLlamada();
+            BuscarDatosLlamada();
 
             //Muestra la pantalla
             HabilitarPantalla();
+        }
+
+        private void IdentificarLlamada(Cliente cliente)
+        {
+            //Busca el estado iniciada
+            Estado[] estados = EstadosDao.Instancia().GetEstados();
+            Estado iniciada = null;
+            foreach (Estado est in estados)
+            {
+                if (est.EsIniciada())
+                {
+                    iniciada = est;
+                    break;
+                }
+            }
+
+            //Busca la llamada que sea del cliente y que este iniciada
+            Llamada[] listaLlamadas = LlamadasDao.Instancia().GetLlamadas();
+            foreach (Llamada llamada in listaLlamadas)
+            {
+                if (llamada.EsDeCliente(cliente) && llamada.EstaIniciada(iniciada))
+                {
+                    llamadaEnCurso = llamada;
+                    break;
+                }
+            }
         }
 
         private void MarcarEnCurso()
@@ -53,14 +81,20 @@ namespace PPAI_IVR_2023.Gestores
                 }
             }
 
-            llamadaEnCurso.EnCurso(enCurso);
+            DateTime fechaHoraActual = GetFechaHoraActual();
+            llamadaEnCurso.MarcarEnCurso(enCurso, fechaHoraActual);
         }
 
-        private void MostrarDatosLlamada()
+        private DateTime GetFechaHoraActual()
+        {
+            return DateTime.Now;
+        }
+
+        private void BuscarDatosLlamada()
         {
             string[] respuesta = new string[4];     //0:cliente - 1:Categoria - 2:Opcion - 3:Subopcion
             //Obtiene el nombre del cliente
-            respuesta[0] = llamadaEnCurso.GetNombreCliente();
+            respuesta[0] = llamadaEnCurso.ObtenerNombreCliente();
 
             if (llamadaEnCurso.TieneSubopcion())
             {
@@ -70,11 +104,11 @@ namespace PPAI_IVR_2023.Gestores
                     OpcionLlamada[] listaOpciones = listaCategorias[cat].GetOpciones();
                     for (int op = 0; op < listaOpciones.Length; op++)
                     {
-                        if (listaOpciones[op].ContieneSubopcion(llamadaEnCurso.GetSubOpcion()))
+                        if (listaOpciones[op].ContieneSubOpcion(llamadaEnCurso.GetSubOpcionSeleccionada()))
                         {
-                            respuesta[1] = listaCategorias[cat].MostarCategoria();
-                            respuesta[2] = listaOpciones[op].MostarOpcion();
-                            respuesta[3] = llamadaEnCurso.GetSubOpcion().MostarSubopcion();
+                            respuesta[1] = listaCategorias[cat].ObtenerNombreCategoria();
+                            respuesta[2] = listaOpciones[op].ObtenerNombreOpcion();
+                            respuesta[3] = llamadaEnCurso.GetSubOpcionSeleccionada().ObtenerNombreSubOpcion();
                         }
                     }
                 }
@@ -84,18 +118,19 @@ namespace PPAI_IVR_2023.Gestores
                 //Si la llamada no tiene subopcion
                 for (int cat = 0; cat < listaCategorias.Length; cat++)
                 {
-                    if (listaCategorias[cat].ContieneOpcion(llamadaEnCurso.GetOpcion()))
+                    if (listaCategorias[cat].ContieneOpcion(llamadaEnCurso.GetOpcionSeleccionada()))
                     {
-                        respuesta[1] = listaCategorias[cat].MostarCategoria();
-                        respuesta[2] = llamadaEnCurso.GetOpcion().MostarOpcion();
+                        respuesta[1] = listaCategorias[cat].ObtenerNombreCategoria();
+                        respuesta[2] = llamadaEnCurso.GetOpcionSeleccionada().ObtenerNombreOpcion();
                         respuesta[3] = "---";
                     }
                 }
             }
 
-            pantalla.PasarDatosLlamada(respuesta);
+            pantalla.MostrarDatosLlamada(respuesta);
         }
 
+        //va a pantalla
         private void HabilitarPantalla()
         {
             //Crea la ventana
@@ -114,18 +149,18 @@ namespace PPAI_IVR_2023.Gestores
             //Si la llamada tiene subopcion se consultan las validaciones de la subopcion, sino se pregunta a la opcion elegida
             if (llamadaEnCurso.TieneSubopcion())
             {
-                listaValidacionesLlamada = llamadaEnCurso.GetSubOpcion().GetValidaciones();
+                listaValidacionesLlamada = llamadaEnCurso.GetSubOpcionSeleccionada().GetValidaciones();
             }
             else
             {
-                listaValidacionesLlamada = llamadaEnCurso.GetOpcion().GetValidaciones();
+                listaValidacionesLlamada = llamadaEnCurso.GetOpcionSeleccionada().GetValidaciones();
             }
 
             int validacionesCorrectas = 0;
             for (int i = 0; i < listaValidacionesLlamada.Length; i++)
             {
                 //Primero busca de que tipo es para mandar dato de validacion
-                TipoInformacion tipoInfo = listaValidacionesLlamada[i].GetTipoInfo();
+                //TipoInformacion tipoInfo = listaValidacionesLlamada[i].GetTipoInfo();
                 string tipoDescr = tipoInfo.GetDescripcion();
                 string dato = "";
                 switch (tipoDescr)
@@ -144,7 +179,7 @@ namespace PPAI_IVR_2023.Gestores
                 }
 
                 //Le dice a llamada que valide el dato
-                bool resultado = llamadaEnCurso.ValidarDatoCliente(tipoInfo, dato);
+                bool resultado = llamadaEnCurso.ValidarDato(tipoInfo, dato);
 
                 if (resultado)
                 {
@@ -167,10 +202,30 @@ namespace PPAI_IVR_2023.Gestores
                 nombreAcciones[0] = "--------";
                 for (int i = 0; i < listaAcciones.Length; i++)
                 {
-                    nombreAcciones[i] = listaAcciones[i + 1].GetDescripcion();
+                    nombreAcciones[i] = listaAcciones[i + 1].GetNombre();
                 }
-                pantalla.SolicitarAccion(nombreAcciones);
+                pantalla.MostrarAccion(nombreAcciones);
             }
+        }
+
+        public int[] BuscarValidaciones()
+        {
+            return llamadaEnCurso.ObtenerValidaciones();
+        }
+
+        public void ValidarDato(string dato, int nroValidacion)
+        {
+
+        }
+
+        public void ControlarValidacion()
+        {
+
+        }
+
+        public string[] BuscarAcciones()
+        {
+            return new string[3];
         }
 
         public void TomarAccion(int accion, string descr)
@@ -212,7 +267,8 @@ namespace PPAI_IVR_2023.Gestores
             }
 
             //Marca la llamada como finalizada
-            llamadaEnCurso.Finalizar(finalizada);
+            DateTime fechaHoraActual = GetFechaHoraActual();
+            llamadaEnCurso.MarcarFinalizar(finalizada, fechaHoraActual);
             //Calcula la duracion de la llamada
             llamadaEnCurso.CalcularDuracion();
             //Registrar llamada en BD

@@ -24,6 +24,25 @@ namespace PPAI_IVR_2023.Entidades
             this.cliente = cliente;
         }
 
+        public bool EsDeCliente(Cliente cli)
+        {
+            return this.cliente == cli;
+        }
+
+        public bool EstaIniciada(Estado ini)
+        {
+            for (int i = 0; i < cambiosEstado.Count; i++)
+            {
+                if (cambiosEstado[i].EsUltimo())
+                {
+                    return cambiosEstado[i].EsIniciada(ini);
+                }
+            }
+
+            return false;
+        }
+
+        //borrar
         public string[] GetDatos()
         {
             string[] respuesta = new string[4];     //0:cliente - 1:subOpcion - 2:Opcion - 3:Categoria
@@ -36,7 +55,12 @@ namespace PPAI_IVR_2023.Entidades
             return respuesta;
         }
 
-        public void EnCurso(Estado estado)
+        public void MarcarEnCurso(Estado enCurso, DateTime fechaHora)
+        {
+            NuevoEstado(enCurso, fechaHora);
+        }
+
+        private void NuevoEstado(Estado estado, DateTime fechaHora)
         {
             for (int i = 0; i < cambiosEstado.Count; i++)
             {
@@ -47,10 +71,10 @@ namespace PPAI_IVR_2023.Entidades
                 }
             }
 
-            cambiosEstado.Add(new CambioEstado(DateTime.Now, estado));
+            cambiosEstado.Add(new CambioEstado(fechaHora, estado));
         }
 
-        public string GetNombreCliente()
+        public string ObtenerNombreCliente()
         {
             return cliente.GetNombre();
         }
@@ -60,17 +84,22 @@ namespace PPAI_IVR_2023.Entidades
             return subopcionSeleccionada != null;
         }
 
-        public SubOpcionLlamada GetSubOpcion()
+        public SubOpcionLlamada GetSubOpcionSeleccionada()
         {
             return subopcionSeleccionada;
         }
 
-        public OpcionLlamada GetOpcion()
+        public OpcionLlamada GetOpcionSeleccionada()
         {
             return opcionSeleccionada;
         }
 
-        public bool ValidarDatoCliente(TipoInformacion tipo, string dato)
+        public int[] ObtenerValidaciones()
+        {
+            return new int[0];
+        }
+
+        public bool ValidarDato(TipoInformacion tipo, string dato)
         {
             return cliente.ValidarDato(tipo, dato);
         }
@@ -80,18 +109,9 @@ namespace PPAI_IVR_2023.Entidades
             descripcionOperador = descripcion;
         }
 
-        public void Finalizar(Estado estado)
+        public void MarcarFinalizar(Estado finalizada, DateTime fechaHora)
         {
-            for (int i = 0; i < cambiosEstado.Count; i++)
-            {
-                if (cambiosEstado[i].EsUltimo())
-                {
-                    cambiosEstado[i].SetFechaHoraFin(DateTime.Now);
-                    break;
-                }
-            }
-
-            cambiosEstado.Add(new CambioEstado(DateTime.Now, estado));
+            NuevoEstado(finalizada, fechaHora);
         }
 
         public void CalcularDuracion()
@@ -119,6 +139,11 @@ namespace PPAI_IVR_2023.Entidades
 
             //Realiza la resta
             duracion = ultimo.GetFechaHoraInicio() - primero.GetFechaHoraInicio();
+        }
+
+        private void ObtenerInicioLlamada()
+        {
+
         }
     }
 }

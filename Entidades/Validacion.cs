@@ -8,22 +8,23 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class Validacion
     {
-        //private string audioMensajeValidacion;
         private string nombre;
         private int nroOrden;
-        private TipoInformacion tipo;
 
-        public Validacion(string nombre, int nroOrden, TipoInformacion tipo)
+        public Validacion(string nombre, int nroOrden)
         {
-            //this.audioMensajeValidacion = audioMensajeValidacion;
             this.nombre = nombre;
             this.nroOrden = nroOrden;
-            this.tipo = tipo;
         }
 
-        public TipoInformacion GetTipoInfo()
+        public string GetNombre()
         {
-            return tipo;
+            return nombre;
+        }
+
+        public int GetNroOrden()
+        {
+            return nroOrden;
         }
     }
 }

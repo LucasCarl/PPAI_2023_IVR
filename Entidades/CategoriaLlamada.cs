@@ -8,16 +8,12 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class CategoriaLlamada
     {
-        //private string audioMensajeOpciones;
-        //private string mensajeOpciones;
         private string nombre;
         private int nroOrden;
         private OpcionLlamada[] opciones;
 
         public CategoriaLlamada(string nombre, int nroOrden, OpcionLlamada[] opciones)
         {
-            //this.audioMensajeOpciones = audioMensajeOpciones;
-            //this.mensajeOpciones = mensajeOpciones;
             this.nombre = nombre;
             this.nroOrden = nroOrden;
             this.opciones = opciones;
@@ -39,10 +35,17 @@ namespace PPAI_IVR_2023.Entidades
             return false;
         }
 
-        public string MostarCategoria()
+        public string ObtenerNombreCategoria()
         {
             string txt = nroOrden + ". " + nombre;
             return txt;
+        }
+
+        public string[] ObtenerNombresCategoriaOpcionSubOpcion()
+        {
+            string[] nombres = new string[3];   //0: categoria - 1: opcion - 2: subopcion
+
+            return nombres;
         }
     }
 }

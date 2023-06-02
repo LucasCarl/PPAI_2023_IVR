@@ -21,6 +21,11 @@ namespace PPAI_IVR_2023.Entidades
             this.info = info;
         }
 
+        public bool esCliente(Cliente cliente)
+        {
+            return cliente == this;
+        }
+
         public int GetDni()
         {
             return dni;
@@ -68,7 +73,7 @@ namespace PPAI_IVR_2023.Entidades
             {
                 if (info[i].GetTipoInfo() == tipo)
                 {
-                    resultado = info[i].CompararDato(dato);
+                    resultado = info[i].EsDatoCorrecto(dato);
                     break;
                 }
             }

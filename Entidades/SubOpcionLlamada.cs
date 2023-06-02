@@ -10,13 +10,13 @@ namespace PPAI_IVR_2023.Entidades
     {
         private string nombre;
         private int nroOrden;
-        private Validacion[] validacionesRequerida;
+        private Validacion[] validacionesRequeridas;
 
         public SubOpcionLlamada(string nombre, int nroOrden, Validacion[] validacionesRequerida)
         {
             this.nombre = nombre;
             this.nroOrden = nroOrden;
-            this.validacionesRequerida = validacionesRequerida;
+            this.validacionesRequeridas = validacionesRequerida;
         }
 
         public string GetNombre()
@@ -24,17 +24,12 @@ namespace PPAI_IVR_2023.Entidades
             return nombre;
         }
 
-        public int GetNroOrden()
+        public bool EsSubOpcion(SubOpcionLlamada subOpcion)
         {
-            return nroOrden;
+            return subOpcion == this;
         }
 
-        public bool EsNro(int nro)
-        {
-            return nro == this.nroOrden;
-        }
-
-        public string MostarSubopcion()
+        public string ObtenerNombreSubOpcion()
         {
             string txt = nroOrden + ". " + nombre;
             return txt;
@@ -42,7 +37,7 @@ namespace PPAI_IVR_2023.Entidades
 
         public Validacion[] GetValidaciones()
         {
-            return validacionesRequerida;
+            return validacionesRequeridas;
         }
     }
 }

@@ -9,35 +9,36 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class OpcionLlamada
     {
-        //private string audioMensajeSubopciones;
-        //private string mensajeSubopciones;
         private string nombre;
         private int nroOrden;
-        private SubOpcionLlamada[] subopcionLlamada;
+        private SubOpcionLlamada[] subOpciones;
         private Validacion[] validacionesRequeridas;
 
-        public OpcionLlamada( string nombre, int nroOrden, SubOpcionLlamada[] subopcionLlamada, Validacion[] validacionesRequeridas)
+        public OpcionLlamada( string nombre, int nroOrden, SubOpcionLlamada[] subopciones, Validacion[] validacionesRequeridas)
         {
-            //this.audioMensajeSubopciones = audioMensajeSubopciones;
-            //this.mensajeSubopciones = mensajeSubopciones;
             this.nombre = nombre;
             this.nroOrden = nroOrden;
-            this.subopcionLlamada = subopcionLlamada;
+            this.subOpciones = subopciones;
             this.validacionesRequeridas = validacionesRequeridas;
         }
 
-        public bool ContieneSubopcion(SubOpcionLlamada subOpcion)
+        public bool esOpcion(OpcionLlamada opcion)
         {
-            for (int i = 0; i < subopcionLlamada.Length; i++)
+            return opcion == this;
+        }
+
+        public bool ContieneSubOpcion(SubOpcionLlamada subOpcion)
+        {
+            for (int i = 0; i < subOpciones.Length; i++)
             {
-                if (subopcionLlamada[i] == subOpcion)
+                if (subOpciones[i] == subOpcion)
                     return true;
             }
 
             return false;
         }
 
-        public string MostarOpcion()
+        public string ObtenerNombreOpcion()
         {
             string txt = nroOrden + ". " + nombre;
             return txt;

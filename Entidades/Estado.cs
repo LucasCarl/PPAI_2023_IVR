@@ -20,9 +20,19 @@ namespace PPAI_IVR_2023.Entidades
             return nombre;
         }
 
+        public bool EsIniciada()
+        {
+            return this.GetNombre() == "Iniciada";
+        }
+
         public bool EsEnCurso()
         {
             return this.GetNombre() == "En Curso";
+        }
+
+        public bool EsFinalizada()
+        {
+            return this.GetNombre() == "Finalizada";
         }
     }
 }
