@@ -17,11 +17,13 @@ namespace PPAI_IVR_2023.Entidades
             this.nroOrden = nroOrden;
         }
 
+        /// <summary> Obtiene el nombre de la validacion </summary>
         public string GetNombre()
         {
             return nombre;
         }
 
+        /// <summary> Obtiene el numero de orden de la validacion </summary>
         public int GetNroOrden()
         {
             return nroOrden;
