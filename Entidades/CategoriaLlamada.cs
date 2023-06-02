@@ -19,22 +19,23 @@ namespace PPAI_IVR_2023.Entidades
             this.opciones = opciones;
         }
 
-        public OpcionLlamada[] GetOpciones()
-        {
-            return opciones;
-        }
-
+        /// <summary> Pregunta si la categoria tiene la opcion deseada </summary>
+        /// <param name="opcion"> Opcion que se desea buscar </param>
+        /// <returns> Indice de la opcion en la lista de opcioness de la categoria. Devuelve -1 si no se encuentra </returns>
         public int ContieneOpcion(OpcionLlamada opcion)
         {
             for (int i = 0; i < opciones.Length; i++)
             {
-                if (opciones[i] == opcion)
+                if (opciones[i].EsOpcion(opcion))
                     return i;
             }
 
             return -1;
         }
 
+        /// <summary> Pregunta si alguna de las opciones de la categoria tiene la subopcion deseada </summary>
+        /// <param name="subOpcion"> Subopcion que se desea buscar </param>
+        /// <returns> Vector con indices: 0-> opcion 1-> subopcion. Devuelve vector vacio si no se encuentra </returns>
         public int[] ContieneSubOpcion(SubOpcionLlamada subOpcion)
         {
             int[] ops = new int[2];
@@ -52,12 +53,15 @@ namespace PPAI_IVR_2023.Entidades
             return new int[0];
         }
 
+        /// <summary> Obtiene el nombre de la categoria, sumando su nroOrden y su nombre </summary>
         public string ObtenerNombreCategoria()
         {
             string txt = nroOrden + ". " + nombre;
             return txt;
         }
 
+        /// <summary> Obtiene los nombres de: la categoria, la opcion y la subopcion </summary>
+        /// <returns> Vector de string con los nombres: 0-> categoria 1-> opcion 2-> subopcion </returns>
         public string[] ObtenerNombresCategoriaOpcionSubOpcion(int op, int subop)
         {
             string[] nombres = new string[3];   //0: categoria - 1: opcion - 2: subopcion
@@ -69,6 +73,8 @@ namespace PPAI_IVR_2023.Entidades
             return nombres;
         }
 
+        /// <summary> Obtiene los nombres de: la categoria y la opcion </summary>
+        /// <returns> Vector de string con los nombres: 0-> categoria 1-> opcion 2-> vacio </returns>
         public string[] ObtenerNombresCategoriaOpcion(int op)
         {
             string[] nombres = new string[3];   //0: categoria - 1: opcion - 2: subopcion
