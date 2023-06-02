@@ -19,22 +19,21 @@ namespace PPAI_IVR_2023.Entidades
             this.validacionesRequeridas = validacionesRequerida;
         }
 
-        public string GetNombre()
-        {
-            return nombre;
-        }
-
+        /// <summary> Comprueba que la subopcion sea la misma </summary>
+        /// <param name="subOpcion"> Subopcion que se desea comparar </param>
         public bool EsSubOpcion(SubOpcionLlamada subOpcion)
         {
             return subOpcion == this;
         }
 
+        /// <summary> Obtiene el nombre de la subopcion, sumando su nroOrden y su nombre </summary>
         public string ObtenerNombreSubOpcion()
         {
             string txt = nroOrden + ". " + nombre;
             return txt;
         }
 
+        /// <summary> Obtiene las validaciones requeridas para la opcion </summary>
         public Validacion[] GetValidaciones()
         {
             return validacionesRequeridas;
