@@ -29,10 +29,14 @@ namespace PPAI_IVR_2023.Entidades
 
         public int ContieneSubOpcion(SubOpcionLlamada subOpcion)
         {
-            for (int i = 0; i < subOpciones.Length; i++)
+            //Comprueba que tenga subOpciones
+            if(subOpciones != null)
             {
-                if (subOpciones[i].EsSubOpcion(subOpcion))
-                    return i;
+                for (int i = 0; i < subOpciones.Length; i++)
+                {
+                    if (subOpciones[i].EsSubOpcion(subOpcion))
+                        return i;
+                }
             }
 
             return -1;

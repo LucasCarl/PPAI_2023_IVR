@@ -22,7 +22,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
             listasSubopciones[0][1] = new SubOpcionLlamada("No cuenta con los datos", 2, new Validacion[2] { listaValidaciones[0], listaValidaciones[1] });
             listasSubopciones[0][2] = new SubOpcionLlamada("Desea comunicarse con responsable", 3, new Validacion[2] { listaValidaciones[0], listaValidaciones[1] });
 
-            listasSubopciones[1] = new SubOpcionLlamada[3];
+            listasSubopciones[1] = new SubOpcionLlamada[2];
             listasSubopciones[1][0] = new SubOpcionLlamada("Informar motivos de bloqueo", 1, new Validacion[1] { listaValidaciones[0] });
             listasSubopciones[1][1] = new SubOpcionLlamada("Comunicarse con responsable", 2, new Validacion[2] { listaValidaciones[0], listaValidaciones[2] });
 

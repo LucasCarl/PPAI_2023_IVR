@@ -144,12 +144,12 @@ namespace PPAI_IVR_2023.Presentacion
         public void SolicitarConfirmacion()
         {
             DialogResult respuesta = MessageBox.Show("Seguro que quiere confirmar esta acción?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            gestorRta.TomarConfirmacion(respuesta == DialogResult.Yes);
+            TomarConfirmacion(respuesta == DialogResult.Yes);
         }
 
-        public void TomarConfirmacion()
+        public void TomarConfirmacion(bool respuesta)
         {
-
+            gestorRta.TomarConfirmacion(respuesta);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -157,7 +157,7 @@ namespace PPAI_IVR_2023.Presentacion
             DialogResult respuesta = MessageBox.Show("Seguro que quiere terminar la llamada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(DialogResult.Yes == respuesta)
             {
-                this.Close();
+                Application.Exit();
             }
         }
 
