@@ -21,11 +21,15 @@ namespace PPAI_IVR_2023.Presentacion
             this.gestorRta = gestor;
         }
 
+        /// <summary>  Muestra la pantalla </summary>
         public void HabilitarPantalla()
         {
             this.Show();
         }
 
+        /// <summary> Muestra los datos de la llamada </summary>
+        /// <param name="nombreCliente"> Nombre del cliente </param>
+        /// <param name="datosOpciones"> Nombres de las opciones </param>
         public void MostrarDatosLlamada(string nombreCliente, string[] datosOpciones)
         {
             txtCliente.Text = nombreCliente;
@@ -34,8 +38,11 @@ namespace PPAI_IVR_2023.Presentacion
             txtSubOp.Text = datosOpciones[2];
         }
 
+        /// <summary> Muestra el groupbox de la validacion indicada </summary>
+        /// <param name="validacion"> Numero de orden de la validacion que se quiere mostrar </param>
         public void MostrarValidacion(int validacion)
         {
+            // Selecciona el groupbox
             GroupBox gboxValidacion;
             switch (validacion)
             {
@@ -54,12 +61,15 @@ namespace PPAI_IVR_2023.Presentacion
                 default:
                     return;
             }
-
+            // Lo hace visible
             gboxValidacion.Visible = true;
         }
 
+        /// <summary> Habilita el groupbox de la validacion indicada </summary>
+        /// <param name="validacion"> Numero de orden de la validacion que se quiere mostrar </param>
         public void SolicitarValidacion(int validacion)
         {
+            // Selecciona el groupbox
             GroupBox gboxValidacion;
             switch (validacion)
             {
@@ -78,17 +88,22 @@ namespace PPAI_IVR_2023.Presentacion
                 default:
                     return;
             }
-
+            // Lo habilita
             gboxValidacion.Enabled = true;
         }
-
+        /// <summary> Toma los datos de la validacion indicada </summary>
+        /// <param name="validacion"> Numero de orden de la validacion que se quiere comprobar </param>
+        /// <param name="dato"> Informacion que se quiere comprobar </param>
         public void TomarValidacion(int validacion, string dato)
         {
             gestorRta.ControlarValidacion(validacion, dato);
         }
 
+        /// <summary> Marca el groupbox de la validacion indicada y lo deshabilita </summary>
+        /// <param name="validacion"> Numero de orden de la validacion que se quiere mostrar </param>
         public void ValidacionBuena(int validacion)
         {
+            // Selecciona el groupbox
             GroupBox gboxValidacion;
             switch (validacion)
             {
@@ -107,21 +122,24 @@ namespace PPAI_IVR_2023.Presentacion
                 default:
                     return;
             }
-
+            // Lo deshabilita y le cambia el color
             gboxValidacion.Enabled = false;
             gboxValidacion.BackColor = Color.GreenYellow;
         }
 
+        /// <summary> Avisa al usuario que la validacion no fue correcta </summary>
         public void ErrorValidacion()
         {
             MessageBox.Show("La validacion ingresada no es correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        /// <summary> Muestra los nombres de las acciones en el combobox </summary>
         public void MostrarAcciones(string[] nombreAcciones)
         {
             cbxAcciones.DataSource = nombreAcciones;
         }
 
+        /// <summary> Habilita los componentes para que el operador pueda elegir una acicon </summary>
         public void SolicitarAccion()
         {
             txtDescripcion.Enabled = true;
@@ -129,6 +147,7 @@ namespace PPAI_IVR_2023.Presentacion
             cbxAcciones.Enabled = true;
         }
 
+        /// <summary> Toma los datos de la accion seleccionada </summary>
         public void TomarAccion()
         {
             string descr = txtDescripcion.Text;
@@ -136,31 +155,20 @@ namespace PPAI_IVR_2023.Presentacion
             gestorRta.TomarAccion(accion, descr);
         }
 
-        private void btnRegistrarAccion_Click(object sender, EventArgs e)
-        {
-            TomarAccion();
-        }
-
+        /// <summary> Muestra una pantalla para que el operador confirme su seleccion </summary>
         public void SolicitarConfirmacion()
         {
             DialogResult respuesta = MessageBox.Show("Seguro que quiere confirmar esta acción?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             TomarConfirmacion(respuesta == DialogResult.Yes);
         }
 
+        /// <summary> Toma la confirmacion del operador </summary> 
         public void TomarConfirmacion(bool respuesta)
         {
             gestorRta.TomarConfirmacion(respuesta);
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            DialogResult respuesta = MessageBox.Show("Seguro que quiere terminar la llamada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(DialogResult.Yes == respuesta)
-            {
-                Application.Exit();
-            }
-        }
-
+        /// <summary> Avisa al operador que la operacion fue exitosa </summary>
         public void AvisoFinRegistro()
         {
             MessageBox.Show("La llamada y su accion fueron registradas con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -180,6 +188,20 @@ namespace PPAI_IVR_2023.Presentacion
         private void btnCodigoPostal_Click(object sender, EventArgs e)
         {
             TomarValidacion(3, numCodigoPostal.Text.ToString());
+        }
+
+        private void btnRegistrarAccion_Click(object sender, EventArgs e)
+        {
+            TomarAccion();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("Seguro que quiere terminar la llamada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult.Yes == respuesta)
+            {
+                Application.Exit();
+            }
         }
     }
 }
