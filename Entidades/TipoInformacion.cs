@@ -15,6 +15,7 @@ namespace PPAI_IVR_2023.Entidades
             this.descripcion = descripcion;
         }
 
+        /// <summary> Obtiene la descripcion del tipo </summary>
         public string GetDescripcion()
         {
             return descripcion;
