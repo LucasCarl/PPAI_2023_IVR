@@ -24,11 +24,14 @@ namespace PPAI_IVR_2023.Entidades
             this.cliente = cliente;
         }
 
+        /// <summary> Comprueba que la llamada sea del cliente </summary>
+        /// <param name="cli"> Cliente a comprobar </param>
         public bool EsDeCliente(Cliente cli)
         {
             return this.cliente == cli;
         }
 
+        /// <summary> Pregunta si la llamada esta en el estado iniciada </summary>
         public bool EstaIniciada(Estado ini)
         {
             for (int i = 0; i < cambiosEstado.Count; i++)
@@ -42,24 +45,15 @@ namespace PPAI_IVR_2023.Entidades
             return false;
         }
 
-        //borrar
-        public string[] GetDatos()
-        {
-            string[] respuesta = new string[4];     //0:cliente - 1:subOpcion - 2:Opcion - 3:Categoria
-            respuesta[0] = cliente.GetNombre();
-            if(subopcionSeleccionada != null)
-            {
-                subopcionSeleccionada.GetNombre();
-            }
-
-            return respuesta;
-        }
-
+        /// <summary> Crea un nuevo estado de la llamada con el estado "En Curso" </summary>
         public void MarcarEnCurso(Estado enCurso, DateTime fechaHora)
         {
             NuevoEstado(enCurso, fechaHora);
         }
 
+        /// <summary> Crea un nuevo estado de la llamada </summary>
+        /// <param name="estado"> Estado a asignar </param>
+        /// <param name="fechaHora"> Fecha hora actual </param>
         private void NuevoEstado(Estado estado, DateTime fechaHora)
         {
             for (int i = 0; i < cambiosEstado.Count; i++)
@@ -74,21 +68,25 @@ namespace PPAI_IVR_2023.Entidades
             cambiosEstado.Add(new CambioEstado(fechaHora, estado));
         }
 
+        /// <summary> Obtiene el nombre del cliente de la llamada </summary>
         public string ObtenerNombreCliente()
         {
             return cliente.GetNombre();
         }
 
+        /// <summary> Pregunta si la llamada tiene subopcion seleccionada o no </summary>
         public bool TieneSubopcion()
         {
             return subopcionSeleccionada != null;
         }
 
+        /// <summary> Obtiene la subopcion seleccionada </summary>
         public SubOpcionLlamada GetSubOpcionSeleccionada()
         {
             return subopcionSeleccionada;
         }
 
+        /// <summary> Obtiene la opcion seleccionada </summary>
         public OpcionLlamada GetOpcionSeleccionada()
         {
             return opcionSeleccionada;
@@ -98,14 +96,14 @@ namespace PPAI_IVR_2023.Entidades
         /// <returns> Los numero de orden de las validaciones </returns>
         public int[] ObtenerValidaciones()
         {
-            //Obtiene las validaciones necesarias para la subopcion u opcion
+            // Obtiene las validaciones necesarias para la subopcion u opcion
             Validacion[] validaciones = new Validacion[0];
             if (TieneSubopcion())
                 validaciones = subopcionSeleccionada.GetValidaciones();
             else
                 validaciones = opcionSeleccionada.GetValidaciones();
 
-            //Obtiene el nroOrden de cada una
+            // Obtiene el nroOrden de cada una
             int[] nroValidaciones = new int[validaciones.Length];
             for (int i = 0; i < validaciones.Length; i++)
             {
@@ -114,51 +112,67 @@ namespace PPAI_IVR_2023.Entidades
             return nroValidaciones;
         }
 
+        /// <summary> Valida que el dato sea correcto </summary>
+        /// <param name="validacion"> Numero de orden de la validacion a comprobar </param>
+        /// <param name="dato"> Informacion a comprobar </param>
         public bool ValidarDato(int validacion, string dato)
         {
             return cliente.ValidarDato(validacion, dato);
         }
 
+        /// <summary> Asigna la descripcion del operador a la llamada </summary>
         public void SetDescripcionOperador(string descripcion)
         {
             descripcionOperador = descripcion;
         }
 
+        /// <summary> Crea un nuevo estado de la llamada con el estado "Finalizada" </summary>
         public void MarcarFinalizar(Estado finalizada, DateTime fechaHora)
         {
             NuevoEstado(finalizada, fechaHora);
         }
 
+        /// <summary> Calcula la duracion total de la llamada </summary>
         public void CalcularDuracion()
         {
-            //Se les da valores para que en la resta no de error de null
+            // Se les da valores para que en la resta no de error de null
             CambioEstado primero = cambiosEstado[0];
             CambioEstado ultimo = cambiosEstado[cambiosEstado.Count - 1];
 
-            DateTime fechaInicio = DateTime.MaxValue;
-            //Busca los cambioEstados primero y ultimo
+            DateTime fechaInicio = ObtenerInicioLlamada();
+            // Busca los cambioEstados primero y ultimo
             for (int i = 0; i < cambiosEstado.Count; i++)
             {
-                //Encuentra el primer CambioEstado
-                if(cambiosEstado[i].GetFechaHoraInicio() < fechaInicio)
+                // Encuentra el primer CambioEstado
+                if(cambiosEstado[i].GetFechaHoraInicio() == fechaInicio)
                 {
                     primero = cambiosEstado[i];
-                    fechaInicio = primero.GetFechaHoraInicio();
                 }
-                //Encuentra el ultimo cambioEstado
+                // Encuentra el ultimo cambioEstado
                 if (cambiosEstado[i].EsUltimo())
                 {
                     ultimo = cambiosEstado[i];
                 }
             }
 
-            //Realiza la resta
+            // Realiza la resta
             duracion = ultimo.GetFechaHoraInicio() - primero.GetFechaHoraInicio();
         }
 
-        private void ObtenerInicioLlamada()
+        /// <summary> Obtiene la fecha hora inicio de la llamada </summary>
+        private DateTime ObtenerInicioLlamada()
         {
+            DateTime fechaInicio = DateTime.MaxValue;
+            for (int i = 0; i < cambiosEstado.Count; i++)
+            {
+                // Encuentra el primer CambioEstado
+                if (cambiosEstado[i].GetFechaHoraInicio() < fechaInicio)
+                {
+                    fechaInicio = cambiosEstado[i].GetFechaHoraInicio();
+                }
+            }
 
+            return fechaInicio;
         }
     }
 }
