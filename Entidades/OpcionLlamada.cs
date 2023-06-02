@@ -22,20 +22,25 @@ namespace PPAI_IVR_2023.Entidades
             this.validacionesRequeridas = validacionesRequeridas;
         }
 
-        public bool esOpcion(OpcionLlamada opcion)
+        public bool EsOpcion(OpcionLlamada opcion)
         {
             return opcion == this;
         }
 
-        public bool ContieneSubOpcion(SubOpcionLlamada subOpcion)
+        public int ContieneSubOpcion(SubOpcionLlamada subOpcion)
         {
             for (int i = 0; i < subOpciones.Length; i++)
             {
-                if (subOpciones[i] == subOpcion)
-                    return true;
+                if (subOpciones[i].EsSubOpcion(subOpcion))
+                    return i;
             }
 
-            return false;
+            return -1;
+        }
+
+        public string ObtenerNombreSubOpcion(int subop)
+        {
+            return subOpciones[subop].ObtenerNombreSubOpcion();
         }
 
         public string ObtenerNombreOpcion()

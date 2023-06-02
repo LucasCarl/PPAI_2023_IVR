@@ -22,8 +22,7 @@ namespace PPAI_IVR_2023
             GestorRtaOperador gestor = new GestorRtaOperador();
 
             //Inicia el CU: 17
-            gestor.OpOperador(llamada);
-            //Application.Run(new Form1());
+            gestor.OpOperador(cliente);
         }
     }
 }

@@ -26,12 +26,12 @@ namespace PPAI_IVR_2023.Presentacion
             Application.Run(this);
         }
 
-        public void MostrarDatosLlamada(string[] datosLlamada)
+        public void MostrarDatosLlamada(string nombreCliente, string[] datosOpciones)
         {
-            txtCliente.Text = datosLlamada[0];
-            txtCategoria.Text = datosLlamada[1];
-            txtOpcion.Text = datosLlamada[2];
-            txtSubOp.Text = datosLlamada[3];
+            txtCliente.Text = nombreCliente;
+            txtCategoria.Text = datosOpciones[0];
+            txtOpcion.Text = datosOpciones[1];
+            txtSubOp.Text = datosOpciones[2];
         }
 
         public void MostrarValidacion()
