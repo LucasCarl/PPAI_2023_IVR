@@ -12,12 +12,10 @@ namespace PPAI_IVR_2023.DataAccessObjects
         private static ClientesDao instancia;
         private Cliente[] listaClientes;
         private InformacionCliente[][] listasInfoClientes;
-        private TipoInformacion[] listaTipos;
 
         public ClientesDao()
         {
-            TipoInformacion[] listaTipos = TiposInfoDao.Instancia().GetTipos();
-            Validacion[] listaValidaciones = ValidacionesDao.Instancia().GetValidaciones();
+            List<Validacion> listaValidaciones = ValidacionesDao.Instancia().ObtenerValidaciones();
 
             listasInfoClientes = new InformacionCliente[3][];
             listasInfoClientes[0] = new InformacionCliente[3];

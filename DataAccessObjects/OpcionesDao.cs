@@ -14,7 +14,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         public OpcionesDao()
         {
-            Validacion[] listaValidaciones = ValidacionesDao.Instancia().GetValidaciones();
+            List<Validacion> listaValidaciones = ValidacionesDao.Instancia().ObtenerValidaciones();
             listasOpciones = new OpcionLlamada[3][];
             
             listasOpciones[0] = new OpcionLlamada[2];
