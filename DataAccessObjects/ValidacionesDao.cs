@@ -11,15 +11,6 @@ namespace PPAI_IVR_2023.DataAccessObjects
     internal class ValidacionesDao
     {
         private static ValidacionesDao instancia;
-        private Validacion[] listaValidacionesHard;
-
-        public ValidacionesDao()
-        {
-            listaValidacionesHard = new Validacion[3];
-            listaValidacionesHard[0] = new Validacion("Fecha", 1);
-            listaValidacionesHard[1] = new Validacion("Hijos", 2);
-            listaValidacionesHard[2] = new Validacion("Cod Postal", 3);
-        }
 
         public static ValidacionesDao Instancia()
         {
