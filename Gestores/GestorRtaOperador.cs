@@ -18,7 +18,7 @@ namespace PPAI_IVR_2023.Gestores
         private int validacionesBuenas = 0;
         private string descripcion;
         private GestorAcciones gestorAcciones;
-        private Accion[] listaAcciones;
+        private List<Accion> listaAcciones;
         private int indexAccion;
 
         public GestorRtaOperador()
@@ -196,8 +196,8 @@ namespace PPAI_IVR_2023.Gestores
         public void BuscarAcciones()
         {
             // Busca los nombres de las acciones
-            string[] nombresAcciones = new string[listaAcciones.Length];
-            for (int i = 0; i < listaAcciones.Length; i++)
+            string[] nombresAcciones = new string[listaAcciones.Count];
+            for (int i = 0; i < listaAcciones.Count; i++)
             {
                 nombresAcciones[i] = listaAcciones[i].GetNombre();
             }

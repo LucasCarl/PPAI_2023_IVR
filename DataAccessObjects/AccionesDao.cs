@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,6 @@ namespace PPAI_IVR_2023.DataAccessObjects
     internal class AccionesDao
     {
         private static AccionesDao instancia;
-        private Accion[] listaAcciones;
-
-        public AccionesDao()
-        {
-            listaAcciones = new Accion[5];
-            listaAcciones[0] = new Accion("Accion 1");
-            listaAcciones[1] = new Accion("Accion 2");
-            listaAcciones[2] = new Accion("Accion 3");
-            listaAcciones[3] = new Accion("Accion 4");
-            listaAcciones[4] = new Accion("Accion 5");
-        }
 
         public static AccionesDao Instancia()
         {
@@ -30,9 +20,28 @@ namespace PPAI_IVR_2023.DataAccessObjects
             return instancia;
         }
 
-        public Accion[] GetAcciones()
+        public List<Accion> GetAcciones()
         {
+            List<Accion> listaAcciones = new List<Accion>();
+
+            // Consulta SQL
+            string sqlComando = "SELECT A.nombre FROM Acciones A";
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando).Rows;
+
+            // Mapeo de respuestas
+            foreach (DataRow fila in resultadoConsulta)
+            {
+                listaAcciones.Add(MapeoAccion(fila));
+            }
+
             return listaAcciones;
+        }
+
+        private Accion MapeoAccion(DataRow fila)
+        {
+            Accion accion = new Accion(fila["nombre"].ToString());
+
+            return accion;
         }
     }
 }
