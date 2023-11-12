@@ -40,5 +40,10 @@ namespace PPAI_IVR_2023.Entidades
         {
             return validacionesRequeridas;
         }
+
+        public int GetId()
+        {
+            return id;
+        }
     }
 }

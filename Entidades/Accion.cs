@@ -8,10 +8,12 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class Accion
     {
+        private int id;
         private string nombre;
 
-        public Accion(string nombre)
+        public Accion(int id, string nombre)
         {
+            this.id = id;
             this.nombre = nombre;
         }
 
@@ -19,6 +21,11 @@ namespace PPAI_IVR_2023.Entidades
         public string GetNombre()
         {
             return nombre;
+        }
+
+        public int GetId()
+        {
+            return id;
         }
     }
 }

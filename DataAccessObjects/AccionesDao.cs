@@ -25,7 +25,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
             List<Accion> listaAcciones = new List<Accion>();
 
             // Consulta SQL
-            string sqlComando = "SELECT A.nombre FROM Acciones A";
+            string sqlComando = "SELECT A.id_accion, A.nombre FROM Acciones A";
             DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando).Rows;
 
             // Mapeo de respuestas
@@ -39,7 +39,9 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         private Accion MapeoAccion(DataRow fila)
         {
-            Accion accion = new Accion(fila["nombre"].ToString());
+            Accion accion = new Accion(
+                Convert.ToInt32(fila["id_accion"].ToString()),
+                fila["nombre"].ToString());
 
             return accion;
         }

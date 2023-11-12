@@ -14,6 +14,8 @@ namespace PPAI_IVR_2023.Entidades
         private OpcionLlamada opcionSeleccionada;
         private List<CambioEstado> cambiosEstado;
         private Cliente cliente;
+        private Accion accion;
+        private string detalleAccion;
 
         public Llamada(SubOpcionLlamada subopcionSeleccionada, OpcionLlamada opcionSeleccionada, List<CambioEstado> cambiosEstado, Cliente cliente)
         {
@@ -173,6 +175,41 @@ namespace PPAI_IVR_2023.Entidades
             }
 
             return fechaInicio;
+        }
+
+        public Cliente GetCliente()
+        {
+            return cliente;
+        }
+
+        public TimeSpan GetDuracion()
+        {
+            return duracion;
+        }
+
+        public void SetAccion(Accion a)
+        {
+            accion = a;
+        }
+
+        public Accion GetAccion()
+        {
+            return accion;
+        }
+
+        public void SetDetalleAccion(string detalle)
+        {
+            detalleAccion = detalle;
+        }
+
+        public string GetDetalleAccion()
+        {
+            return detalleAccion;
+        }
+
+        public string GetDescOperador()
+        {
+            return descripcionOperador;
         }
     }
 }

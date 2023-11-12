@@ -98,6 +98,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
             // Se utiliza para sentencias SQL del tipo “Insert/Update/Delete”
             SqlConnection dbConexion = new SqlConnection();
             SqlCommand comando = new SqlCommand();
+            SqlTransaction transaction = null;
 
             int rtdo = 0;
 
@@ -107,10 +108,15 @@ namespace PPAI_IVR_2023.DataAccessObjects
             // Si no hubo error
             try
             {
+                // Conexion a DB
                 dbConexion.ConnectionString = strgConexion;
                 dbConexion.Open();
+                // Empiezo Transaccion
+                transaction = dbConexion.BeginTransaction();
+
                 comando.Connection = dbConexion;
                 comando.CommandType = CommandType.Text;
+                comando.Transaction = transaction;
                 // Establece la instrucción a ejecutar
                 comando.CommandText = strSql;
 
@@ -125,9 +131,12 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
                 // Retorna el resultado de ejecutar el comando
                 rtdo = comando.ExecuteNonQuery();
+
+                transaction.Commit();
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 throw ex;
             }
             finally
