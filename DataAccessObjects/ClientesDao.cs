@@ -14,6 +14,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
         private List<Cliente> listaClientesHard;
         private InformacionCliente[][] listasInfoClientes;
 
+        /*
         public ClientesDao()
         {
             List<Validacion> listaValidaciones = ValidacionesDao.Instancia().ObtenerValidaciones();
@@ -37,6 +38,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
             listaClientesHard.Add(new Cliente(35485155, "Ernesto Lopez", 351111111, listasInfoClientes[1]));
             listaClientesHard.Add(new Cliente(42586684, "Norberto Diaz", 123123123, listasInfoClientes[2]));
         }
+        */
 
         public static ClientesDao Instancia()
         {
@@ -65,11 +67,13 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
         private Cliente MapeoCliente(DataRow fila)
         {
+            int dni = Convert.ToInt32(fila["dni"].ToString());
+
             Cliente cliente = new Cliente(
-                Convert.ToInt32(fila["dni"].ToString()),
+                dni,
                 fila["nombre"].ToString(),
                 Convert.ToInt32(fila["celular"].ToString()),
-                listasInfoClientes[0]);
+                InfoClienteDao.Instancia().ObtenerInfoDeCliente(dni));
 
             return cliente;
         }

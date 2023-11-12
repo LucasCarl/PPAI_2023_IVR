@@ -37,6 +37,20 @@ namespace PPAI_IVR_2023.DataAccessObjects
             return listaValidaciones;
         }
 
+        public Validacion ObtenerValidacion(int id_validacion)
+        {
+            // Consulta SQL
+            string sqlComando = "SELECT V.nombre, V.orden FROM Validaciones V WHERE V.id_validacion = @id";
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("id", id_validacion);
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando, parametros).Rows;
+
+            // Mapeo de respuesta
+            Validacion validacion = MapeoValidacion(resultadoConsulta[0]);
+            
+            return validacion;
+        }
+
         private Validacion MapeoValidacion(DataRow fila)
         {
             Validacion validacion = new Validacion(fila["nombre"].ToString(), Convert.ToInt32(fila["orden"].ToString()));

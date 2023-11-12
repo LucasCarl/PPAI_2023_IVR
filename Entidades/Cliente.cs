@@ -11,9 +11,9 @@ namespace PPAI_IVR_2023.Entidades
         private int dni;
         private string nombreCompleto;
         private int nroCelular;
-        private InformacionCliente[] info;
+        private List<InformacionCliente> info;
 
-        public Cliente(int dni, string nombreCompleto, int nroCelular, InformacionCliente[] info)
+        public Cliente(int dni, string nombreCompleto, int nroCelular, List<InformacionCliente> info)
         {
             this.dni = dni;
             this.nombreCompleto = nombreCompleto;
@@ -38,7 +38,7 @@ namespace PPAI_IVR_2023.Entidades
         public bool ValidarDato(int validacion, string dato)
         {
             bool resultado = false;
-            for (int i = 0; i < info.Length; i++)
+            for (int i = 0; i < info.Count; i++)
             {
                 if (info[i].TieneValidacion(validacion))
                     resultado = info[i].EsDatoCorrecto(dato);
@@ -72,12 +72,12 @@ namespace PPAI_IVR_2023.Entidades
             this.nroCelular = nro;
         }
 
-        public InformacionCliente[] GetInfo()
+        public List<InformacionCliente> GetInfo()
         {
             return info;
         }
 
-        public void SetInfo(InformacionCliente[] info)
+        public void SetInfo(List<InformacionCliente> info)
         {
             this.info = info;
         }
