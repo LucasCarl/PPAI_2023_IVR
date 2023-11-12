@@ -97,15 +97,15 @@ namespace PPAI_IVR_2023.Entidades
         public int[] ObtenerValidaciones()
         {
             // Obtiene las validaciones necesarias para la subopcion u opcion
-            Validacion[] validaciones = new Validacion[0];
+            List<Validacion> validaciones;
             if (TieneSubopcion())
                 validaciones = subopcionSeleccionada.GetValidaciones();
             else
                 validaciones = opcionSeleccionada.GetValidaciones();
 
             // Obtiene el nroOrden de cada una
-            int[] nroValidaciones = new int[validaciones.Length];
-            for (int i = 0; i < validaciones.Length; i++)
+            int[] nroValidaciones = new int[validaciones.Count];
+            for (int i = 0; i < validaciones.Count; i++)
             {
                 nroValidaciones[i] = validaciones[i].GetNroOrden();
             }

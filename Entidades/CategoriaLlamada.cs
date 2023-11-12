@@ -10,9 +10,9 @@ namespace PPAI_IVR_2023.Entidades
     {
         private string nombre;
         private int nroOrden;
-        private OpcionLlamada[] opciones;
+        private List<OpcionLlamada> opciones;
 
-        public CategoriaLlamada(string nombre, int nroOrden, OpcionLlamada[] opciones)
+        public CategoriaLlamada(string nombre, int nroOrden, List<OpcionLlamada> opciones)
         {
             this.nombre = nombre;
             this.nroOrden = nroOrden;
@@ -24,7 +24,7 @@ namespace PPAI_IVR_2023.Entidades
         /// <returns> Indice de la opcion en la lista de opcioness de la categoria. Devuelve -1 si no se encuentra </returns>
         public int ContieneOpcion(OpcionLlamada opcion)
         {
-            for (int i = 0; i < opciones.Length; i++)
+            for (int i = 0; i < opciones.Count; i++)
             {
                 if (opciones[i].EsOpcion(opcion))
                     return i;
@@ -39,7 +39,7 @@ namespace PPAI_IVR_2023.Entidades
         public int[] ContieneSubOpcion(SubOpcionLlamada subOpcion)
         {
             int[] ops = new int[2];
-            for (int i = 0; i < opciones.Length; i++)
+            for (int i = 0; i < opciones.Count; i++)
             {
                 int subop = opciones[i].ContieneSubOpcion(subOpcion);
                 if(subop != -1)

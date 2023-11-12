@@ -12,7 +12,7 @@ namespace PPAI_IVR_2023.Gestores
     public class GestorRtaOperador
     {
         private Llamada llamadaEnCurso;
-        private CategoriaLlamada[] listaCategorias;
+        private List<CategoriaLlamada> listaCategorias;
         private PantallaRtaOperador pantalla;
         private int[] listaValidaciones;
         private int validacionesBuenas = 0;
@@ -23,7 +23,7 @@ namespace PPAI_IVR_2023.Gestores
 
         public GestorRtaOperador()
         {
-            listaCategorias = CategoriasDao.Instancia().ObtenerTodasCategorias();
+            listaCategorias = CategoriasDao.Instancia().ObtenerCategorias();
             pantalla = new PantallaRtaOperador(this);
             gestorAcciones = new GestorAcciones();
             listaAcciones = AccionesDao.Instancia().GetAcciones();
@@ -114,7 +114,7 @@ namespace PPAI_IVR_2023.Gestores
             {
                 // Si tiene subopcion
                 SubOpcionLlamada subOpcion = llamadaEnCurso.GetSubOpcionSeleccionada();
-                for (int i = 0; i < listaCategorias.Length; i++)
+                for (int i = 0; i < listaCategorias.Count; i++)
                 {
                     // Pregunta a la categoria si tiene alguna de sus opciones contiene la subopcion
                     int[] ops = listaCategorias[i].ContieneSubOpcion(subOpcion);    // 0: opcion - 1: subopcion
@@ -129,7 +129,7 @@ namespace PPAI_IVR_2023.Gestores
             {
                 // Si tiene opcion
                 OpcionLlamada opcion = llamadaEnCurso.GetOpcionSeleccionada();
-                for (int i = 0; i < listaCategorias.Length; i++)
+                for (int i = 0; i < listaCategorias.Count; i++)
                 {
                     // Pregunta a la categoria si contiene la opcion
                     int op = listaCategorias[i].ContieneOpcion(opcion);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,6 @@ namespace PPAI_IVR_2023.DataAccessObjects
     internal class CategoriasDao
     {
         private static CategoriasDao instancia;
-        private CategoriaLlamada[] listaCategorias;
-
-        public CategoriasDao()
-        {
-            listaCategorias = new CategoriaLlamada[3];
-            listaCategorias[0] = new CategoriaLlamada("Robo", 1, OpcionesDao.Instancia().GetOpciones(0));
-            listaCategorias[1] = new CategoriaLlamada("Bloqueo", 2, OpcionesDao.Instancia().GetOpciones(1));
-            listaCategorias[2] = new CategoriaLlamada("Nueva Tarjeta", 3, OpcionesDao.Instancia().GetOpciones(2));
-        }
 
         public static CategoriasDao Instancia()
         {
@@ -28,14 +20,31 @@ namespace PPAI_IVR_2023.DataAccessObjects
             return instancia;
         }
 
-        public CategoriaLlamada GetCategoria(int n)
+        public List<CategoriaLlamada> ObtenerCategorias()
         {
-            return listaCategorias[n];
+            List<CategoriaLlamada> listaCategorias = new List<CategoriaLlamada>();
+
+            // Consulta SQL
+            string sqlComando = "SELECT C.id_categoria, C.nombre, C.orden FROM Categorias C ORDER BY C.orden";
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando).Rows;
+
+            // Mapeo de Respuestas
+            foreach (DataRow fila in resultadoConsulta)
+            {
+                listaCategorias.Add(MapeoCategoria(fila));
+            }
+            return listaCategorias;
         }
 
-        public CategoriaLlamada[] ObtenerTodasCategorias()
+        private CategoriaLlamada MapeoCategoria(DataRow fila)
         {
-            return listaCategorias;
+            int id_categoria = Convert.ToInt32(fila["id_categoria"].ToString());
+            CategoriaLlamada categoria = new CategoriaLlamada(
+                fila["nombre"].ToString(),
+                Convert.ToInt32(fila["orden"].ToString()),
+                OpcionesDao.Instancia().ObtenerOpcionesDeCategoria(id_categoria));
+
+            return categoria;
         }
     }
 }

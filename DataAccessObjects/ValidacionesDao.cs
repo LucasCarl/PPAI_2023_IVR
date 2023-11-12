@@ -43,5 +43,45 @@ namespace PPAI_IVR_2023.DataAccessObjects
 
             return validacion;
         }
+
+        public List<Validacion> ObtenerValidacionesDeSubopcion(int id_subopcion)
+        {
+            List<Validacion> listaValidaciones = new List<Validacion>();
+
+            // Consulta SQL
+            string sqlComando = String.Concat("SELECT V.nombre, V.orden FROM Validaciones V, \"Validaciones X Subopcion\" VS ",
+                                "WHERE VS.id_subopcion = @subop AND VS.id_validacion = V.id_validacion ORDER BY V.orden");
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("subop", id_subopcion);
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando, parametros).Rows;
+
+            // Mapeo de respuestas
+            foreach (DataRow fila in resultadoConsulta)
+            {
+                listaValidaciones.Add(MapeoValidacion(fila));
+            }
+
+            return listaValidaciones;
+        }
+
+        public List<Validacion> ObtenerValidacionesDeOpcion(int id_opcion)
+        {
+            List<Validacion> listaValidaciones = new List<Validacion>();
+
+            // Consulta SQL
+            string sqlComando = String.Concat("SELECT V.nombre, V.orden FROM Validaciones V, \"Validaciones X Opcion\" VO ",
+                                "WHERE VO.id_opcion = @op AND VO.id_validacion = V.id_validacion ORDER BY V.orden");
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("op", id_opcion);
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando, parametros).Rows;
+
+            // Mapeo de respuestas
+            foreach (DataRow fila in resultadoConsulta)
+            {
+                listaValidaciones.Add(MapeoValidacion(fila));
+            }
+
+            return listaValidaciones;
+        }
     }
 }

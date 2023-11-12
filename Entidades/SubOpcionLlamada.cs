@@ -8,12 +8,14 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class SubOpcionLlamada
     {
+        private int id;
         private string nombre;
         private int nroOrden;
-        private Validacion[] validacionesRequeridas;
+        private List<Validacion> validacionesRequeridas;
 
-        public SubOpcionLlamada(string nombre, int nroOrden, Validacion[] validacionesRequerida)
+        public SubOpcionLlamada(int id, string nombre, int nroOrden, List<Validacion> validacionesRequerida)
         {
+            this.id = id;
             this.nombre = nombre;
             this.nroOrden = nroOrden;
             this.validacionesRequeridas = validacionesRequerida;
@@ -23,7 +25,7 @@ namespace PPAI_IVR_2023.Entidades
         /// <param name="subOpcion"> Subopcion que se desea comparar </param>
         public bool EsSubOpcion(SubOpcionLlamada subOpcion)
         {
-            return subOpcion == this;
+            return subOpcion.id == this.id;
         }
 
         /// <summary> Obtiene el nombre de la subopcion, sumando su nroOrden y su nombre </summary>
@@ -34,7 +36,7 @@ namespace PPAI_IVR_2023.Entidades
         }
 
         /// <summary> Obtiene las validaciones requeridas para la opcion </summary>
-        public Validacion[] GetValidaciones()
+        public List<Validacion> GetValidaciones()
         {
             return validacionesRequeridas;
         }

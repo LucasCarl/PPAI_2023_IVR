@@ -9,13 +9,15 @@ namespace PPAI_IVR_2023.Entidades
 {
     public class OpcionLlamada
     {
+        private int id;
         private string nombre;
         private int nroOrden;
-        private SubOpcionLlamada[] subOpciones;
-        private Validacion[] validacionesRequeridas;
+        private List<SubOpcionLlamada> subOpciones;
+        private List<Validacion> validacionesRequeridas;
 
-        public OpcionLlamada( string nombre, int nroOrden, SubOpcionLlamada[] subopciones, Validacion[] validacionesRequeridas)
+        public OpcionLlamada(int id, string nombre, int nroOrden, List<SubOpcionLlamada> subopciones, List<Validacion> validacionesRequeridas)
         {
+            this.id = id;
             this.nombre = nombre;
             this.nroOrden = nroOrden;
             this.subOpciones = subopciones;
@@ -26,7 +28,7 @@ namespace PPAI_IVR_2023.Entidades
         /// <param name="opcion"> Opcion que se desea comparar </param>
         public bool EsOpcion(OpcionLlamada opcion)
         {
-            return opcion == this;
+            return opcion.id == this.id;
         }
 
         /// <summary> Pregunta si la opcion tiene la subopcion deseada </summary>
@@ -37,7 +39,7 @@ namespace PPAI_IVR_2023.Entidades
             //Comprueba que tenga subOpciones
             if(subOpciones != null)
             {
-                for (int i = 0; i < subOpciones.Length; i++)
+                for (int i = 0; i < subOpciones.Count; i++)
                 {
                     if (subOpciones[i].EsSubOpcion(subOpcion))
                         return i;
@@ -62,7 +64,7 @@ namespace PPAI_IVR_2023.Entidades
         }
 
         /// <summary> Obtiene las validaciones requeridas para la opcion </summary>
-        public Validacion[] GetValidaciones()
+        public List<Validacion> GetValidaciones()
         {
             return validacionesRequeridas;
         }
