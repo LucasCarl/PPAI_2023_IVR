@@ -28,7 +28,7 @@ namespace PPAI_IVR_2023.Entidades
         /// <param name="cli"> Cliente a comprobar </param>
         public bool EsDeCliente(Cliente cli)
         {
-            return this.cliente == cli;
+            return this.cliente.GetDni() == cli.GetDni();
         }
 
         /// <summary> Pregunta si la llamada esta en el estado iniciada </summary>

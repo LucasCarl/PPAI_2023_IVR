@@ -6,9 +6,9 @@ namespace PPAI_IVR_2023
     public partial class Form1 : Form
     {
         private GestorRtaOperador gestorRtaOperador;
-        private Cliente[] clientes;
+        private List<Cliente> clientes;
 
-        public Form1(GestorRtaOperador gestor, Cliente[] listaClientes)
+        public Form1(GestorRtaOperador gestor, List<Cliente> listaClientes)
         {
             InitializeComponent();
             gestorRtaOperador = gestor;

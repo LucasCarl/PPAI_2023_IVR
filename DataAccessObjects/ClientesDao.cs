@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
     internal class ClientesDao
     {
         private static ClientesDao instancia;
-        private Cliente[] listaClientes;
+        private List<Cliente> listaClientesHard;
         private InformacionCliente[][] listasInfoClientes;
 
         public ClientesDao()
@@ -31,10 +32,10 @@ namespace PPAI_IVR_2023.DataAccessObjects
             listasInfoClientes[2][1] = new InformacionCliente("1", listaValidaciones[1]);
             listasInfoClientes[2][2] = new InformacionCliente("5000", listaValidaciones[2]);
 
-            listaClientes = new Cliente[3];
-            listaClientes[0] = new Cliente(42678364, "Ramon Ramirez", 351789891, listasInfoClientes[0]);
-            listaClientes[1] = new Cliente(35485155, "Ernesto Lopez", 351111111, listasInfoClientes[1]);
-            listaClientes[2] = new Cliente(42586684, "Norberto Diaz", 123123123, listasInfoClientes[2]);
+            listaClientesHard = new List<Cliente>();
+            listaClientesHard.Add(new Cliente(42678364, "Ramon Ramirez", 351789891, listasInfoClientes[0]));
+            listaClientesHard.Add(new Cliente(35485155, "Ernesto Lopez", 351111111, listasInfoClientes[1]));
+            listaClientesHard.Add(new Cliente(42586684, "Norberto Diaz", 123123123, listasInfoClientes[2]));
         }
 
         public static ClientesDao Instancia()
@@ -45,9 +46,32 @@ namespace PPAI_IVR_2023.DataAccessObjects
             return instancia;
         }
 
-        public Cliente[] GetClientes()
+        public List<Cliente> GetClientes()
         {
+            List<Cliente> listaClientes = new List<Cliente>();
+
+            // Consulta SQL
+            string sqlComando = "SELECT C.dni, C.nombre, C.Celular FROM Clientes C";
+            DataRowCollection resultadoConsulta = DataManager.Instancia().ConsultaSQL(sqlComando).Rows;
+
+            // Mapeo de respuestas
+            foreach (DataRow fila in resultadoConsulta)
+            {
+                listaClientes.Add(MapeoCliente(fila));
+            }
+
             return listaClientes;
+        }
+
+        private Cliente MapeoCliente(DataRow fila)
+        {
+            Cliente cliente = new Cliente(
+                Convert.ToInt32(fila["dni"].ToString()),
+                fila["nombre"].ToString(),
+                Convert.ToInt32(fila["celular"].ToString()),
+                listasInfoClientes[0]);
+
+            return cliente;
         }
 
         public InformacionCliente[][] GetInfoClientes()
