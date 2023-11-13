@@ -9,9 +9,10 @@ namespace PPAI_IVR_2023.Gestores
 {
     public class GestorAcciones
     {
-        public void RegistarAccion(Accion accion)
+        public void RegistarAccion(Llamada llamada, Accion accion)
         {
-
+            llamada.SetAccion(accion);
+            llamada.SetDetalleAccion("");
         }
     }
 }

@@ -10,10 +10,10 @@ namespace PPAI_IVR_2023.Entidades
     {
         private int dni;
         private string nombreCompleto;
-        private int nroCelular;
+        private string nroCelular;
         private List<InformacionCliente> info;
 
-        public Cliente(int dni, string nombreCompleto, int nroCelular, List<InformacionCliente> info)
+        public Cliente(int dni, string nombreCompleto, string nroCelular, List<InformacionCliente> info)
         {
             this.dni = dni;
             this.nombreCompleto = nombreCompleto;
@@ -62,12 +62,12 @@ namespace PPAI_IVR_2023.Entidades
             this.dni = dni;
         }
 
-        public int GetNroCelular()
+        public string GetNroCelular()
         {
             return nroCelular;
         }
 
-        public void SetNroCelular(int nro)
+        public void SetNroCelular(string nro)
         {
             this.nroCelular = nro;
         }

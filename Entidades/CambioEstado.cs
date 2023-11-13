@@ -39,9 +39,19 @@ namespace PPAI_IVR_2023.Entidades
         }
 
         /// <summary> Detecta si el cambio de estado tiene el estado iniciada </summary>
-        public bool EsIniciada(Estado iniciada)
+        public bool EsIniciada()
         {
-            return estado == iniciada;
+            return estado.EsIniciada();
+        }
+
+        public DateTime GetFechaHoraFin()
+        {
+            return fechaHoraFin;
+        }
+
+        public Estado GetEstado()
+        {
+            return estado;
         }
     }
 }

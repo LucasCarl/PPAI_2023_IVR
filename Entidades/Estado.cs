@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.Entidades
 {
-    public class Estado
+    public abstract class Estado
     {
+        private int id;
         private string nombre;
-
-        public Estado(string nombre)
-        {
-            this.nombre = nombre;
-        }
 
         /// <summary> Obtiene el nombre del estado </summary>
         public string GetNombre()
@@ -21,22 +17,31 @@ namespace PPAI_IVR_2023.Entidades
             return nombre;
         }
 
-        /// <summary> Comprueba que sea el estado "Iniciada" </summary>
-        public bool EsIniciada()
+        public int GetId()
         {
-            return this.GetNombre() == "Iniciada";
+            return id;
+        }
+
+        /// <summary> Comprueba que sea el estado "Iniciada" </summary>
+        public virtual bool EsIniciada()
+        {
+            return false;
         }
 
         /// <summary> Comprueba que sea el estado "En Curso" </summary>
-        public bool EsEnCurso()
+        public virtual bool EsEnCurso()
         {
-            return this.GetNombre() == "En Curso";
+            return false;
         }
 
         /// <summary> Comprueba que sea el estado "Finalizada" </summary>
-        public bool EsFinalizada()
+        public virtual bool EsFinalizada()
         {
-            return this.GetNombre() == "Finalizada";
+            return false;
         }
+
+        public virtual void MarcarFinalizada(Llamada llamada, DateTime fechaHora) { }
+
+        public virtual void MarcarEnCurso(Llamada llamada, DateTime fechaHora) { }
     }
 }

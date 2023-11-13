@@ -33,39 +33,38 @@ namespace PPAI_IVR_2023.Entidades
             return this.cliente.GetDni() == cli.GetDni();
         }
 
-        /// <summary> Pregunta si la llamada esta en el estado iniciada </summary>
-        public bool EstaIniciada(Estado ini)
+        private CambioEstado GetUltimoCambioEstado()
         {
             for (int i = 0; i < cambiosEstado.Count; i++)
             {
                 if (cambiosEstado[i].EsUltimo())
                 {
-                    return cambiosEstado[i].EsIniciada(ini);
+                    return cambiosEstado[i];
                 }
             }
 
-            return false;
+            return cambiosEstado[0];
+        }
+
+        /// <summary> Pregunta si la llamada esta en el estado iniciada </summary>
+        public bool EstaIniciada()
+        {
+            return GetUltimoCambioEstado().EsIniciada();
         }
 
         /// <summary> Crea un nuevo estado de la llamada con el estado "En Curso" </summary>
-        public void MarcarEnCurso(Estado enCurso, DateTime fechaHora)
+        public void MarcarEnCurso(DateTime fechaHora)
         {
-            NuevoEstado(enCurso, fechaHora);
+            Estado estado = GetUltimoCambioEstado().GetEstado();
+            estado.MarcarEnCurso(this, fechaHora);
         }
 
         /// <summary> Crea un nuevo estado de la llamada </summary>
         /// <param name="estado"> Estado a asignar </param>
         /// <param name="fechaHora"> Fecha hora actual </param>
-        private void NuevoEstado(Estado estado, DateTime fechaHora)
+        public void NuevoEstado(Estado estado, DateTime fechaHora)
         {
-            for (int i = 0; i < cambiosEstado.Count; i++)
-            {
-                if (cambiosEstado[i].EsUltimo())
-                {
-                    cambiosEstado[i].SetFechaHoraFin(DateTime.Now);
-                    break;
-                }
-            }
+            GetUltimoCambioEstado().SetFechaHoraFin(fechaHora);
 
             cambiosEstado.Add(new CambioEstado(fechaHora, estado));
         }
@@ -129,9 +128,10 @@ namespace PPAI_IVR_2023.Entidades
         }
 
         /// <summary> Crea un nuevo estado de la llamada con el estado "Finalizada" </summary>
-        public void MarcarFinalizar(Estado finalizada, DateTime fechaHora)
+        public void MarcarFinalizada(DateTime fechaHora)
         {
-            NuevoEstado(finalizada, fechaHora);
+            Estado estado = GetUltimoCambioEstado().GetEstado();
+            estado.MarcarFinalizada(this , fechaHora);
         }
 
         /// <summary> Calcula la duracion total de la llamada </summary>
@@ -210,6 +210,11 @@ namespace PPAI_IVR_2023.Entidades
         public string GetDescOperador()
         {
             return descripcionOperador;
+        }
+
+        public List<CambioEstado> GetCambiosEstado()
+        {
+            return cambiosEstado;
         }
     }
 }

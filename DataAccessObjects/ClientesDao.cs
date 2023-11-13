@@ -72,7 +72,7 @@ namespace PPAI_IVR_2023.DataAccessObjects
             Cliente cliente = new Cliente(
                 dni,
                 fila["nombre"].ToString(),
-                Convert.ToInt32(fila["celular"].ToString()),
+                fila["celular"].ToString(),
                 InfoClienteDao.Instancia().ObtenerInfoDeCliente(dni));
 
             return cliente;
