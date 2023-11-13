@@ -13,8 +13,8 @@ namespace PPAI_IVR_2023.Entidades
 
         public Cancelada()
         {
-            id = 2;
-            nombre = "Cancelada";
+            SetId(3);
+            SetNombre("Cancelada");
         }
     }
 }

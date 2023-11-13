@@ -13,8 +13,8 @@ namespace PPAI_IVR_2023.Entidades
 
         public Iniciada()
         {
-            id = 0;
-            nombre = "Iniciada";
+            SetId(0);
+            SetNombre("Iniciada");
         }
 
         public override bool EsIniciada()

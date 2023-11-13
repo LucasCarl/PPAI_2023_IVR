@@ -17,9 +17,19 @@ namespace PPAI_IVR_2023.Entidades
             return nombre;
         }
 
+        public void SetNombre(string nombre)
+        {
+            this.nombre = nombre;
+        }
+
         public int GetId()
         {
             return id;
+        }
+
+        public void SetId(int id)
+        {
+            this.id = id;
         }
 
         /// <summary> Comprueba que sea el estado "Iniciada" </summary>
