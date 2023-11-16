@@ -18,9 +18,9 @@ namespace PPAI_IVR_2023.DataAccessObjects
             List<Cliente> clientes = ClientesDao.Instancia().GetClientes();
             //Estado iniciada = EstadosDao.Instancia().GetEstados()[0];
             listaLlamadas = new Llamada[3];
-            listaLlamadas[0] = new Llamada(SubopcionesDao.Instancia().ObtenerSubopcionesDeOpcion(0)[1], null, new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, clientes[0]);
-            listaLlamadas[1] = new Llamada(null, OpcionesDao.Instancia().ObtenerOpcionesDeCategoria(1)[0], new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, clientes[1]);
-            listaLlamadas[2] = new Llamada(SubopcionesDao.Instancia().ObtenerSubopcionesDeOpcion(4)[2], null, new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, clientes[2]);
+            listaLlamadas[0] = new Llamada(SubopcionesDao.Instancia().ObtenerSubopcionesDeOpcion(0)[1], null, clientes[0], new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, new Iniciada());
+            listaLlamadas[1] = new Llamada(null, OpcionesDao.Instancia().ObtenerOpcionesDeCategoria(1)[0], clientes[1], new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, new Iniciada());
+            listaLlamadas[2] = new Llamada(SubopcionesDao.Instancia().ObtenerSubopcionesDeOpcion(4)[2], null, clientes[2], new List<CambioEstado>() { new CambioEstado(DateTime.Now, new Iniciada()) }, new Iniciada());
         }
 
         public static LlamadasDao Instancia()

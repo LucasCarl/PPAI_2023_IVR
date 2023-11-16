@@ -19,10 +19,18 @@ namespace PPAI_IVR_2023.Entidades
             return true;
         }
 
-        public override void MarcarFinalizada(Llamada llamada, DateTime fechaHora)
+        public override void MarcarFinalizada(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado)
         {
-            Estado finalizada = new Finalizada();
-            llamada.NuevoEstado(finalizada, fechaHora);
+            // Setea fecha fin del ultimo cambio estado
+            CambioEstado ultimo = BuscarEstadoActual(listaCambiosEstado);
+            ultimo.SetFechaHoraFin(fechaHora);
+
+            // Crea nuevo cambio estado
+            Finalizada finalizada = new Finalizada();
+            CambioEstado nuevoCambioEstado = CrearCambioEstado(fechaHora, finalizada);
+
+            llamada.AgregarCambioEstado(nuevoCambioEstado);
+            llamada.SetEstadoActual(finalizada);
         }
     }
 }

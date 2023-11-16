@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,9 +23,18 @@ namespace PPAI_IVR_2023.Entidades
             return true;
         }
 
-        public override void MarcarEnCurso(Llamada llamada, DateTime fechaHora)
+        public override void MarcarEnCurso(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado)
         {
-            llamada.NuevoEstado(new EnCurso(), fechaHora);
+            // Setea fecha fin del ultimo cambio estado
+            CambioEstado ultimo = BuscarEstadoActual(listaCambiosEstado);
+            ultimo.SetFechaHoraFin(fechaHora);
+
+            // Crea nuevo cambio estado
+            EnCurso enCurso = new EnCurso();
+            CambioEstado nuevoCambioEstado = CrearCambioEstado(fechaHora, enCurso);
+
+            llamada.AgregarCambioEstado(nuevoCambioEstado);
+            llamada.SetEstadoActual(enCurso);
         }
     }
 }

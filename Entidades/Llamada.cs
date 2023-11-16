@@ -16,14 +16,16 @@ namespace PPAI_IVR_2023.Entidades
         private Cliente cliente;
         private Accion accion;
         private string detalleAccion;
+        private Estado estadoActual;
 
-        public Llamada(SubOpcionLlamada subopcionSeleccionada, OpcionLlamada opcionSeleccionada, List<CambioEstado> cambiosEstado, Cliente cliente)
+        public Llamada(SubOpcionLlamada subopcionSeleccionada, OpcionLlamada opcionSeleccionada, Cliente cliente, List<CambioEstado> cambiosEstado, Estado estadoActual)
         {
             this.descripcionOperador = "";
             this.subopcionSeleccionada = subopcionSeleccionada;
             this.opcionSeleccionada = opcionSeleccionada;
             this.cambiosEstado = cambiosEstado;
             this.cliente = cliente;
+            this.estadoActual = estadoActual;
         }
 
         /// <summary> Comprueba que la llamada sea del cliente </summary>
@@ -49,14 +51,13 @@ namespace PPAI_IVR_2023.Entidades
         /// <summary> Pregunta si la llamada esta en el estado iniciada </summary>
         public bool EstaIniciada()
         {
-            return GetUltimoCambioEstado().EsIniciada();
+            return estadoActual.EsIniciada();
         }
 
         /// <summary> Crea un nuevo estado de la llamada con el estado "En Curso" </summary>
         public void MarcarEnCurso(DateTime fechaHora)
         {
-            Estado estado = GetUltimoCambioEstado().GetEstado();
-            estado.MarcarEnCurso(this, fechaHora);
+            estadoActual.MarcarEnCurso(this, fechaHora, cambiosEstado);
         }
 
         /// <summary> Crea un nuevo estado de la llamada </summary>
@@ -130,8 +131,7 @@ namespace PPAI_IVR_2023.Entidades
         /// <summary> Crea un nuevo estado de la llamada con el estado "Finalizada" </summary>
         public void MarcarFinalizada(DateTime fechaHora)
         {
-            Estado estado = GetUltimoCambioEstado().GetEstado();
-            estado.MarcarFinalizada(this , fechaHora);
+            estadoActual.MarcarFinalizada(this , fechaHora, cambiosEstado);
         }
 
         /// <summary> Calcula la duracion total de la llamada </summary>
@@ -215,6 +215,16 @@ namespace PPAI_IVR_2023.Entidades
         public List<CambioEstado> GetCambiosEstado()
         {
             return cambiosEstado;
+        }
+
+        public void AgregarCambioEstado(CambioEstado cambioEstado)
+        {
+            cambiosEstado.Add(cambioEstado);
+        }
+
+        public void SetEstadoActual(Estado estado)
+        {
+            estadoActual = estado;
         }
     }
 }

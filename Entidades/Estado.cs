@@ -50,8 +50,27 @@ namespace PPAI_IVR_2023.Entidades
             return false;
         }
 
-        public virtual void MarcarFinalizada(Llamada llamada, DateTime fechaHora) { }
+        public virtual void MarcarFinalizada(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
 
-        public virtual void MarcarEnCurso(Llamada llamada, DateTime fechaHora) { }
+        public virtual void MarcarEnCurso(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
+
+        public CambioEstado BuscarEstadoActual(List<CambioEstado> cambiosEstado)
+        {
+            for (int i = 0; i < cambiosEstado.Count; i++)
+            {
+                if (cambiosEstado[i].EsUltimo())
+                {
+                    return cambiosEstado[i];
+                }
+            }
+
+            return cambiosEstado[0];
+        }
+
+        public CambioEstado CrearCambioEstado(DateTime fechaHora, Estado estado)
+        {
+            CambioEstado cambioEstado = new CambioEstado(fechaHora, estado);
+            return cambioEstado;
+        }
     }
 }
