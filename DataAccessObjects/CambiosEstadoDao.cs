@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace PPAI_IVR_2023.DataAccessObjects
 {
-    internal class EstadosDao
+    internal class CambiosEstadoDao
     {
-        private static EstadosDao instancia;
+        private static CambiosEstadoDao instancia;
 
-        public static EstadosDao Instancia()
+        public static CambiosEstadoDao Instancia()
         {
             if (instancia == null)
-                instancia = new EstadosDao();
+                instancia = new CambiosEstadoDao();
 
             return instancia;
         }

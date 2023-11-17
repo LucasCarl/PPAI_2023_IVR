@@ -226,5 +226,10 @@ namespace PPAI_IVR_2023.Entidades
         {
             estadoActual = estado;
         }
+
+        public void MarcarCancelada(DateTime fechaHora)
+        {
+            estadoActual.MarcarCancelada(this, fechaHora, cambiosEstado);
+        }
     }
 }

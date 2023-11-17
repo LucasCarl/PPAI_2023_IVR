@@ -68,15 +68,15 @@ namespace PPAI_IVR_2023.DataAccessObjects
             parametros.Add("id", idLlamada);
             parametros.Add("dni", llamada.GetCliente().GetDni());
             parametros.Add("duracion", (int)llamada.GetDuracion().TotalMinutes);
-            parametros.Add("accion", llamada.GetAccion().GetId());
-            parametros.Add("detalleAccion", llamada.GetDetalleAccion());
+            parametros.Add("accion", llamada.GetAccion() != null ? llamada.GetAccion().GetId() : DBNull.Value);
+            parametros.Add("detalleAccion", llamada.GetDetalleAccion() != null ? llamada.GetDetalleAccion() : DBNull.Value);
             parametros.Add("descOperador", llamada.GetDescOperador());
             parametros.Add("idOp", idOpcion != -1 ? idOpcion : DBNull.Value);
             parametros.Add("idSubop", idSubopcion != -1 ? idSubopcion : DBNull.Value);
 
             DataManager.Instancia().EjecutarSQL(comandoSql, parametros);
 
-            EstadosDao.Instancia().GuardarCambiosEstado(idLlamada, llamada.GetCambiosEstado());
+            CambiosEstadoDao.Instancia().GuardarCambiosEstado(idLlamada, llamada.GetCambiosEstado());
         }
     }
 }

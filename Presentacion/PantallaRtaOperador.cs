@@ -200,7 +200,7 @@ namespace PPAI_IVR_2023.Presentacion
             DialogResult respuesta = MessageBox.Show("Seguro que quiere terminar la llamada?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (DialogResult.Yes == respuesta)
             {
-                Application.Exit();
+                gestorRta.CancelarLlamada();
             }
         }
     }

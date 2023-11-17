@@ -50,9 +50,11 @@ namespace PPAI_IVR_2023.Entidades
             return false;
         }
 
+        public virtual void MarcarEnCurso(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
+
         public virtual void MarcarFinalizada(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
 
-        public virtual void MarcarEnCurso(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
+        public virtual void MarcarCancelada(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado) { }
 
         public CambioEstado BuscarEstadoActual(List<CambioEstado> cambiosEstado)
         {

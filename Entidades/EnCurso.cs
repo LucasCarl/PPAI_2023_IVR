@@ -32,5 +32,19 @@ namespace PPAI_IVR_2023.Entidades
             llamada.AgregarCambioEstado(nuevoCambioEstado);
             llamada.SetEstadoActual(finalizada);
         }
+
+        public override void MarcarCancelada(Llamada llamada, DateTime fechaHora, List<CambioEstado> listaCambiosEstado)
+        {
+            // Setea fecha fin del ultimo cambio estado
+            CambioEstado ultimo = BuscarEstadoActual(listaCambiosEstado);
+            ultimo.SetFechaHoraFin(fechaHora);
+
+            // Crea nuevo cambio estado
+            Cancelada cancelada = new Cancelada();
+            CambioEstado nuevoCambioEstado = CrearCambioEstado(fechaHora, cancelada);
+
+            llamada.AgregarCambioEstado(nuevoCambioEstado);
+            llamada.SetEstadoActual(cancelada);
+        }
     }
 }

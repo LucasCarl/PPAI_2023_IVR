@@ -51,20 +51,6 @@ namespace PPAI_IVR_2023.Gestores
         /// <param name="cliente"> Cliente al que pertenece la llamada </param>
         private void IdentificarLlamada(Cliente cliente)
         {
-            /*
-            // Busca el estado iniciada
-            Estado[] estados = EstadosDao.Instancia().GetEstados();
-            Estado iniciada = null;
-            foreach (Estado est in estados)
-            {
-                if (est.EsIniciada())
-                {
-                    iniciada = est;
-                    break;
-                }
-            }
-            */
-
             // Busca la llamada que sea del cliente y que este iniciada
             Llamada[] listaLlamadas = LlamadasDao.Instancia().GetLlamadas();
             foreach (Llamada llamada in listaLlamadas)
@@ -80,20 +66,6 @@ namespace PPAI_IVR_2023.Gestores
         /// <summary> Marca "En curso" a la llamada en curso </summary>
         private void MarcarEnCurso()
         {
-            /*
-            // Busca el estado "En curso"
-            Estado[] estados = EstadosDao.Instancia().GetEstados();
-            Estado enCurso = null;
-            foreach (Estado est in estados)
-            {
-                if (est.EsEnCurso())
-                {
-                    enCurso = est;
-                    break;
-                }
-            }
-            */
-
             // Busca la fechaHora actual
             DateTime fechaHoraActual = GetFechaHoraActual();
             // Le dice a la llamada que se marque en curso
@@ -240,20 +212,6 @@ namespace PPAI_IVR_2023.Gestores
         /// <summary> Finaliza la llamada, marcandola como "finalizada" y calculando su duracion </summary>
         private void FinalizarLlamada()
         {
-            /*
-            // Busca el estado "finalizada"
-            Estado[] estados = EstadosDao.Instancia().GetEstados();
-            Estado finalizada = null;
-            foreach (Estado est in estados)
-            {
-                if (est.EsFinalizada())
-                {
-                    finalizada = est;
-                    break;
-                }
-            }
-            */
-
             // Marca la llamada como finalizada
             DateTime fechaHoraActual = GetFechaHoraActual();
             llamadaEnCurso.MarcarFinalizada(fechaHoraActual);
@@ -261,13 +219,23 @@ namespace PPAI_IVR_2023.Gestores
             // Calcula la duracion de la llamada
             llamadaEnCurso.CalcularDuracion();
 
-            // Registrar llamada en BD(futuro)
+            // Registrar llamada en BD
             LlamadasDao.Instancia().GuardarLlamada(llamadaEnCurso);
 
             // Avisa a operador que se termino el registro
             pantalla.AvisoFinRegistro();
 
             // Termina el Caso de uso
+            FinDeCU();
+        }
+
+        public void CancelarLlamada()
+        {
+            // Marca la llamada como cancelada
+            DateTime fechaHoraActual = GetFechaHoraActual();
+            llamadaEnCurso.MarcarCancelada(fechaHoraActual);
+            LlamadasDao.Instancia().GuardarLlamada(llamadaEnCurso);
+
             FinDeCU();
         }
 
